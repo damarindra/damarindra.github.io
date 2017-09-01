@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>Preparation - Platformer Tutorial Part 1 - Godot - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine. In this section only cover about preparation. I’m using :">
+<meta name="keywords" content="Godot,gamedev,game,development,platformer">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Preparation - Platformer Tutorial Part 1 - Godot">
+<meta property="og:url" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine. In this section only cover about preparation. I’m using :">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/create_project.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/copy_asset.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/create_node2d.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/blurry.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/flags.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/reload.gif">
+<meta property="og:updated_time" content="2017-08-31T08:08:51.683Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Preparation - Platformer Tutorial Part 1 - Godot">
+<meta name="twitter:description" content="Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine. In this section only cover about preparation. I’m using :">
+<meta name="twitter:image" content="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/create_project.jpg">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://damarindra.com/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Project"><span class="toc-text">Create Project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Manage-the-Asset-Sprite"><span class="toc-text">Manage the Asset Sprite</span></a></li></ol>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Preparation - Platformer Tutorial Part 1 - Godot
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-08-24T21:22:08+07:00">
+	
+		    Aug 24, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/godot/">godot</a>, <a class="category-link" href="/categories/godot/tutorial/">tutorial</a>, <a class="category-link" href="/categories/godot/tutorial/tutorial-platformer/">tutorial_platformer</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine. In this section only cover about preparation. I’m using :<br><a id="more"></a></p>
+<ul>
+<li><a href="https://downloads.tuxfamily.org/godotengine/2.1.3/" target="_blank" rel="external">Godot Engine v2.1.3</a></li>
+<li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/tiles.png" title="Asset Tiles">Asset Tiles</a>
+</li>
+</ul>
+<p>For now, what you need is only 2 items. You can install Godot from Steam, or just follow this <a href="https://downloads.tuxfamily.org/godotengine/2.1.3/" target="_blank" rel="external">link</a> and download the executable file depend on your OS. You can grab the asset tile from <a href="https://opengameart.org/content/arcade-platformer-assets" target="_blank" rel="external">grafxkid in opengameart</a>, or just download directly <a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/tiles.png" title="here">here</a> (background color already alpha).</p>
+<h2 id="Create-Project"><a href="#Create-Project" class="headerlink" title="Create Project"></a>Create Project</h2><p>If you know how to create project skip this one, otherwise you can follow my step. Open Godot Engine, you will see Project Window, click New Project Button (on the right side), click browse to make easier, in my case is D:/Godot/V2/Platformer_Tutorial.</p>
+<img src="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/create_project.jpg" alt="Create Project" title="Create Project">
+<p>If you were done, click Create button. Now open the project by double click from the project list.</p>
+<h2 id="Manage-the-Asset-Sprite"><a href="#Manage-the-Asset-Sprite" class="headerlink" title="Manage the Asset Sprite"></a>Manage the Asset Sprite</h2><p>You can copy directly from the file explorer into your project folder, then you can back into Godot Engine. Your file must be available in the FileSystem Window.</p>
+<img src="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/copy_asset.jpg" alt="Copy Asset Tiles into Project" title="Copy Asset Tiles into Project">
+<p>Press F1 or click the 2D button in the top toolbar to show 2D view. Then on the Scene window create root node by clicking the ‘+’ button, select Node2D.</p>
+<img src="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/create_node2d.jpg" alt="Create Node2D" title="Create Node2D">
+<p>After that, drag and drop the tiles.png into the scene view (middle one). As you can see, the image is blurry.</p>
+<img src="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/blurry.jpg" alt="Blurry Image" title="Blurry Image">
+<p>You can fix it by changing the flags option. Double click the tiles.png from the FileSystem window. Now go into Inspector window and change the Flags by disabling everything.</p>
+<img src="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/flags.jpg" alt="Image Flags" title="Image Flags">
+<p>If the image on the scene still blurry, you can try by reloading the image. Still in the Inspector window, Click on the Image option - Load - select tiles.png. Now the image must be fixed.</p>
+<img src="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/reload.gif" alt="Reload Image" title="Reload Image">
+<p>Okay, the preparation is done, you can go to the <a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="next post">next post</a> . Have Fun!!</p>
+<p>.</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a> <a class="tag tag--primary tag--small t-link" href="/tags/platformer/">platformer</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/23/godot_why_i_choose_godot/" data-tooltip="Why Godot?">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"  data-tooltip="Player Creation - Platformer Tutorial Part 2 - Godot">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/23/godot_why_i_choose_godot/" data-tooltip="Why Godot?">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"  data-tooltip="Player Creation - Platformer Tutorial Part 2 - Godot">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

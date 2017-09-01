@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Damar Indra</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://damarindra.com/"/>
+  <updated>2017-08-31T13:14:38.487Z</updated>
+  <id>http://damarindra.com/</id>
+  
+  <author>
+    <name>Damar Indra</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Player Creation - Platformer Tutorial Part 2 - Godot</title>
+    <link href="http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"/>
+    <id>http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/</id>
+    <published>2017-08-28T05:08:08.414Z</published>
+    <updated>2017-08-31T13:14:38.487Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is the second part of the tutorial creating platformer game on Godot Engine.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
+    
+      <category term="tutorial" scheme="http://damarindra.com/categories/godot/tutorial/"/>
+    
+      <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
+    
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
+    
+      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
+    
+      <category term="game" scheme="http://damarindra.com/tags/game/"/>
+    
+      <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Preparation - Platformer Tutorial Part 1 - Godot</title>
+    <link href="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"/>
+    <id>http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/</id>
+    <published>2017-08-24T14:22:08.000Z</published>
+    <updated>2017-08-31T08:08:51.683Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine. In this section only cover about preparation. I’m using :&lt;br&gt;
+    
+    </summary>
+    
+      <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
+    
+      <category term="tutorial" scheme="http://damarindra.com/categories/godot/tutorial/"/>
+    
+      <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
+    
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
+    
+      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
+    
+      <category term="game" scheme="http://damarindra.com/tags/game/"/>
+    
+      <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Why Godot?</title>
+    <link href="http://damarindra.com/2017/08/23/godot_why_i_choose_godot/"/>
+    <id>http://damarindra.com/2017/08/23/godot_why_i_choose_godot/</id>
+    <published>2017-08-23T00:56:19.000Z</published>
+    <updated>2017-08-28T09:30:32.648Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;How-I-met-Godot&quot;&gt;&lt;a href=&quot;#How-I-met-Godot&quot; class=&quot;headerlink&quot; title=&quot;How I met Godot?&quot;&gt;&lt;/a&gt;How I met Godot?&lt;/h2&gt;&lt;p&gt;I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Community) and Doscom held a workshop about game development. So I’m the one who focussed on game development has a job to teaching.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
+    
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
+    
+      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
+    
+      <category term="game" scheme="http://damarindra.com/tags/game/"/>
+    
+      <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+  </entry>
+  
+</feed>

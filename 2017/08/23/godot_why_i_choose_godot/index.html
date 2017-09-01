@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>Why Godot? - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="How I met Godot?I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Co">
+<meta name="keywords" content="Godot,gamedev,game,development">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Why Godot?">
+<meta property="og:url" content="http://damarindra.com/2017/08/23/godot_why_i_choose_godot/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="How I met Godot?I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Co">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-08-28T09:30:32.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Why Godot?">
+<meta name="twitter:description" content="How I met Godot?I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Co">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://damarindra.com/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#How-I-met-Godot"><span class="toc-text">How I met Godot?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-I’m-back-using-Godot"><span class="toc-text">Why I’m back using Godot?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-do-you-think-about-Unity-vs-Godot"><span class="toc-text">What do you think about Unity vs Godot?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SUPPORT-GODOT"><span class="toc-text">SUPPORT GODOT</span></a>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Why Godot?
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-08-23T07:56:19+07:00">
+	
+		    Aug 23, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/godot/">godot</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="How-I-met-Godot"><a href="#How-I-met-Godot" class="headerlink" title="How I met Godot?"></a>How I met Godot?</h2><p>I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Community) and Doscom held a workshop about game development. So I’m the one who focussed on game development has a job to teaching.<br><a id="more"></a> Because the community is open source, I need to find the open source game engine, and finally, I found out Godot. Why I chose Godot? I’m used to developing a game with Unity3D, and Godot is the similar one. Okay I will not explain more about the past, anyway you can check it <a href="https://doscom.org/blog/workshop-pembuatan-game-space-radian-dengan-godot-engine/" target="_blank" rel="external">here</a> about the event.</p>
+<h2 id="Why-I’m-back-using-Godot"><a href="#Why-I’m-back-using-Godot" class="headerlink" title="Why I’m back using Godot?"></a>Why I’m back using Godot?</h2><p>Mid 2017, I’ve decided to use Godot again, why? Without open source (Doscom), I don’t know about Game Dev. So I want to give a feedback, the only way is using godot and share what I’ve learned. I will post blogs here, and maybe videos on youtube.</p>
+<h2 id="What-do-you-think-about-Unity-vs-Godot"><a href="#What-do-you-think-about-Unity-vs-Godot" class="headerlink" title="What do you think about Unity vs Godot?"></a>What do you think about Unity vs Godot?</h2><p>Okay, mostly I’ve been developing 2D games. After I try to using Godot again, I’ve been really surprised, Godot really easy when developing 2D games, for example, the KinematicBody2D has a move function. Move function calculates and detects a collision. As far as I know, Unity doesn’t has this function, only the CharacterController on 3D has the move function. Godot also has a tilemap node, which Unity doesn’t (planned September 2017 ??). So for me, this is really helpful!! TFW, KinematicBody can get the floor (collider) velocity!! Godot, you stole my heart!!</p>
+<p>If you want to know godot more, you can search it in google, there is so many article about godot. I will recommend this one <a href="http://www.gamefromscratch.com/post/2015/01/04/A-Closer-Look-at-the-Godot-Game-Engine.aspx" target="_blank" rel="external">GameFromScratch</a></p>
+<h1 id="SUPPORT-GODOT"><a href="#SUPPORT-GODOT" class="headerlink" title="SUPPORT GODOT"></a>SUPPORT GODOT</h1><p>Don’t forget to support godot to make it good and more good!! If you can donate, you can support it via <a href="https://www.patreon.com/godotengine/posts" target="_blank" rel="external">Patreon</a>, or just one time donation via <a href="https://godotengine.org/donate" target="_blank" rel="external">Paypal</a>. Don’t worry if you can’t donate, you can support godot by using Godot for now, spread the words!!!</p>
+<p>.</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--disabled">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"  data-tooltip="Preparation - Platformer Tutorial Part 1 - Godot">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--disabled">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"  data-tooltip="Preparation - Platformer Tutorial Part 1 - Godot">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

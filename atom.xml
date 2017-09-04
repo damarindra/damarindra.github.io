@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://damarindra.com/"/>
-  <updated>2017-09-02T12:25:03.599Z</updated>
+  <updated>2017-09-04T04:10:26.581Z</updated>
   <id>http://damarindra.com/</id>
   
   <author>
@@ -16,16 +16,49 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Player Creation - Platformer Tutorial Part 2 - Godot</title>
-    <link href="http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"/>
-    <id>http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/</id>
-    <published>2017-08-28T05:08:08.414Z</published>
-    <updated>2017-09-02T12:25:03.599Z</updated>
+    <title>Player Creation 2 - Platformer Tutorial Part 3 - Godot</title>
+    <link href="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/"/>
+    <id>http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/</id>
+    <published>2017-09-02T12:31:16.000Z</published>
+    <updated>2017-09-04T04:10:26.581Z</updated>
     
     <summary type="html">
     
       &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This is the second part of the tutorial creating platformer game on Godot Engine.&lt;/p&gt;
+&lt;p&gt;This is the third part of the tutorial creating platformer game on Godot Engine. In this tutorial will refine our character movement and how to make the character jumping. So let’s get started!&lt;br&gt;
+    
+    </summary>
+    
+      <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
+    
+      <category term="tutorial" scheme="http://damarindra.com/categories/godot/tutorial/"/>
+    
+      <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
+    
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
+    
+      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
+    
+      <category term="game" scheme="http://damarindra.com/tags/game/"/>
+    
+      <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Player Creation - Platformer Tutorial Part 2 - Godot</title>
+    <link href="http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"/>
+    <id>http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/</id>
+    <published>2017-08-28T05:08:08.414Z</published>
+    <updated>2017-09-03T13:32:53.448Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is the second part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain how to make player, from the basic node creation until moving. So let’s get started!&lt;/p&gt;
     
     </summary>
     
@@ -53,11 +86,16 @@
     <link href="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"/>
     <id>http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/</id>
     <published>2017-08-24T14:22:08.000Z</published>
-    <updated>2017-08-31T08:08:51.683Z</updated>
+    <updated>2017-09-02T15:42:29.599Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine. In this section only cover about preparation. I’m using :&lt;br&gt;
+      &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Hello everyone, this is my first godot tutorial. I will explain how I can achieve platformer game in godot engine.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Part 1 : Preparation&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/&quot; title=&quot;Part 2 : Player Creation&quot;&gt;Part 2 : Player Creation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/&quot; title=&quot;Part 3 : Player Creation 2&quot;&gt;Part 3 : Player Creation 2&lt;/a&gt;
     
     </summary>
     
@@ -85,11 +123,12 @@
     <link href="http://damarindra.com/2017/08/23/godot_why_i_choose_godot/"/>
     <id>http://damarindra.com/2017/08/23/godot_why_i_choose_godot/</id>
     <published>2017-08-23T00:56:19.000Z</published>
-    <updated>2017-08-28T09:30:32.648Z</updated>
+    <updated>2017-09-02T12:32:47.593Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;How-I-met-Godot&quot;&gt;&lt;a href=&quot;#How-I-met-Godot&quot; class=&quot;headerlink&quot; title=&quot;How I met Godot?&quot;&gt;&lt;/a&gt;How I met Godot?&lt;/h2&gt;&lt;p&gt;I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Community) and Doscom held a workshop about game development. So I’m the one who focussed on game development has a job to teaching.&lt;br&gt;
+      &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;How-I-met-with-Godot&quot;&gt;&lt;a href=&quot;#How-I-met-with-Godot&quot; class=&quot;headerlink&quot; title=&quot;How I met with Godot?&quot;&gt;&lt;/a&gt;How I met with Godot?&lt;/h2&gt;&lt;p&gt;I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Community) and Doscom held a workshop about game development. So I’m the one who focussed on game development has a job to teaching.&lt;br&gt;
     
     </summary>
     

@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>Player Creation 2 - Platformer Tutorial Part 3 - Godot - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+        <link rel="icon" href="http://damarindra.com/assets/images/avatar.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="This is the third part of the tutorial creating platformer game on Godot Engine. In this tutorial will refine our character movement and how to make the character jumping. So let’s get started!">
+<meta name="keywords" content="Godot,gamedev,game,development,platformer">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Player Creation 2 - Platformer Tutorial Part 3 - Godot">
+<meta property="og:url" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="This is the third part of the tutorial creating platformer game on Godot Engine. In this tutorial will refine our character movement and how to make the character jumping. So let’s get started!">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/acceleration.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/deceleration.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/jump_input.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/fixing_jump.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/restrict_jump_on_ground_only_wall_allowed.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/restrict_jump_on_ground_only.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/controlling_jump_height.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/multiple_jump.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/multiple_jump.gif">
+<meta property="og:updated_time" content="2017-09-04T04:10:26.581Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Player Creation 2 - Platformer Tutorial Part 3 - Godot">
+<meta name="twitter:description" content="This is the third part of the tutorial creating platformer game on Godot Engine. In this tutorial will refine our character movement and how to make the character jumping. So let’s get started!">
+<meta name="twitter:image" content="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/acceleration.gif">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-105267687-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Refining-the-Character-movement"><span class="toc-text">Refining the Character movement</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Acceleration"><span class="toc-text">Acceleration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deceleration"><span class="toc-text">Deceleration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jumping-Implementation"><span class="toc-text">Jumping Implementation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Utilize-the-Jump-Input"><span class="toc-text">Utilize the Jump Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fixing-Jump-Method"><span class="toc-text">Fixing Jump Method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restrict-the-Jump-only-when-grounded"><span class="toc-text">Restrict the Jump, only when grounded</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Controlling-the-Jump-Height"><span class="toc-text">Controlling the Jump Height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multiple-Jump"><span class="toc-text">Multiple Jump</span></a></li></ol></li></ol>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Player Creation 2 - Platformer Tutorial Part 3 - Godot
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-09-02T19:31:16+07:00">
+	
+		    Sep 02, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/godot/">godot</a>, <a class="category-link" href="/categories/godot/tutorial/">tutorial</a>, <a class="category-link" href="/categories/godot/tutorial/tutorial-platformer/">tutorial_platformer</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Refining-the-Character-movement"><span class="toc-text">Refining the Character movement</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Acceleration"><span class="toc-text">Acceleration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deceleration"><span class="toc-text">Deceleration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jumping-Implementation"><span class="toc-text">Jumping Implementation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Utilize-the-Jump-Input"><span class="toc-text">Utilize the Jump Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fixing-Jump-Method"><span class="toc-text">Fixing Jump Method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restrict-the-Jump-only-when-grounded"><span class="toc-text">Restrict the Jump, only when grounded</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Controlling-the-Jump-Height"><span class="toc-text">Controlling the Jump Height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multiple-Jump"><span class="toc-text">Multiple Jump</span></a></li></ol></li></ol></div></div>
+<p>This is the third part of the tutorial creating platformer game on Godot Engine. In this tutorial will refine our character movement and how to make the character jumping. So let’s get started!<br><a id="more"></a></p>
+<ol>
+<li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/" title="Part 1 : Preparation">Part 1 : Preparation</a></li>
+<li><a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="Part 2 : Player Creation">Part 2 : Player Creation</a></li>
+<li><strong>Part 3 : Player Creation 2</strong></li>
+</ol>
+<h2 id="Refining-the-Character-movement"><a href="#Refining-the-Character-movement" class="headerlink" title="Refining the Character movement"></a>Refining the Character movement</h2><p>Current method will move directly by <code>MOVE_SPEED</code> without any smoothing (low to high).</p>
+<h3 id="Acceleration"><a href="#Acceleration" class="headerlink" title="Acceleration"></a>Acceleration</h3><p>The idea is, if you have play super mario, the character movement is started from low until reaching the max speed. We will do it like that, so add a new variable called <code>export var MOVE_SPEED_TIME_NEEDED = .15</code>. This variable will determine how long character need to reach <code>MOVE_SPEED</code>, in this case is .15 second. Next one, add a new variable <code>var move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</code>. Then modify our code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p>Because we use real time calculation (.15 second) then don’t forget to multiply by delta. Okay, maybe some of you will be confused with <code>abs</code> and <code>sign</code>.</p>
+<div class="alert info"><p><code>abs</code> is absolute, that means always return a positive value. For example, the movement.x = -2, then call abs(movement.x) will return 2, but the movement.x still -2 because we don’t assign it.</p>
+<p><code>sign</code> will return -1 or 1, depending on the value. If the value is less than 0, then return -1, and otherwise.</p>
+</div>
+<p>A simple explanation about that code which implements abs and sign is, if the absolute value of movement.x (always positive) more than MOVE_SPEED, then set the movement.x with the sign of movement.x (if movement.x less than 0, then return -1 and moving left, and otherwise) multiply by MOVE_SPEED.</p>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/acceleration.gif" alt="Acceleration" title="Acceleration">
+<h3 id="Deceleration"><a href="#Deceleration" class="headerlink" title="Deceleration"></a>Deceleration</h3><p>When the horizontal input is pressed, the character movement is smooth now, but, when the button is up (unpressed), the character will stop immediately, this is weird right? So, we need to add the deceleration too. Add 2 variable <code>export var DECELERATION_TIME_NEEDED = .15</code> and <code>var dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</code>. Then modify our code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p><strong>Explanation</strong> : So, when right or left input not pressed and movement.x is not zero, then we need to decelerate the movement. First, we need to get the direction of movement by doing sign(movement.x). So we know where the direction for deceleration (sign(movement.x) &#42; -1). Then calculate the deceleration amount with sign(movement.x) &#42; -1 &#42; dec_step &#42; delta. Then just apply to the movement. Also, don’t forget to stop it when reaching the 0 point.</p>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/deceleration.gif" alt="Deceleration" title="Deceleration">
+<p>Final code will looks like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line">export var GRAVITY = <span class="number">10</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15</span></div><div class="line"></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line"></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"></div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line">	<span class="comment"># set the maximum falling speed</span></div><div class="line">	<span class="keyword">if</span> velocity.y &gt; MAX_FALLING_SPEED:</div><div class="line">		velocity.y = MAX_FALLING_SPEED</div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div></pre></td></tr></table></figure>
+<h2 id="Jumping-Implementation"><a href="#Jumping-Implementation" class="headerlink" title="Jumping Implementation"></a>Jumping Implementation</h2><p>The idea is, when user press jump input, then the character will jumping. The jump height depends on how long user presses the jump input. But we don’t do it at once, I’ll explain it step by step.</p>
+<h3 id="Utilize-the-Jump-Input"><a href="#Utilize-the-Jump-Input" class="headerlink" title="Utilize the Jump Input"></a>Utilize the Jump Input</h3><p>In the <a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="part 2">part 2</a>, we have add jump action at <strong>Input Map</strong>. So, let’s implement it! First of all, add one variable to define jump power.</p>
+<p><code>export var JUMP_POWER = 8</code></p>
+<p>Then add one line code for the input right below after left_input</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#prev code</span></div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line"><span class="comment">#next code</span></div></pre></td></tr></table></figure>
+<p>Now, implement the jump ability</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#prev code</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		movement.y = -JUMP_POWER</div><div class="line"></div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line"><span class="comment">#next code</span></div></pre></td></tr></table></figure>
+<p>If you try, whenever you pressed jump key, the character always go up, until you release jump key. Don’t worry, your code not error, because the code says like that.</p>
+<div class="alert info"><p><code>movement.y = -JUMP_POWER</code>, don’t forget the up direction is <strong>negative</strong>!!!</p>
+</div>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/jump_input.gif" alt="Utilize Jump Input" title="Utilize Jump Input">
+<h3 id="Fixing-Jump-Method"><a href="#Fixing-Jump-Method" class="headerlink" title="Fixing Jump Method"></a>Fixing Jump Method</h3><p>Weird?? Don’t worry, no error for now, because our code says like that. Our input is triggered whenever the user presses the jump button. So, our movement.y always same as JUMP_POWER. So we need to make the character only jump when the user pressed down the jump button. Add one more variable</p>
+<p><code>var is_jump_pressed = false</code></p>
+<p>Then modify our implementation</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#prev code</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed:</div><div class="line">			movement.y = -JUMP_POWER</div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		is_jump_pressed = false</div><div class="line"><span class="comment">#next code</span></div></pre></td></tr></table></figure>
+<p>Here the full code</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line">export var GRAVITY = <span class="number">10</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15</span></div><div class="line"></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line"></div><div class="line"><span class="comment"># jump power</span></div><div class="line">export var JUMP_POWER = <span class="number">5</span></div><div class="line"></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"><span class="comment"># store status of jump input</span></div><div class="line">var is_jump_pressed = false</div><div class="line"></div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed:</div><div class="line">			movement.y = -JUMP_POWER</div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		is_jump_pressed = false</div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line">	<span class="comment"># set the maximum falling speed</span></div><div class="line">	<span class="keyword">if</span> velocity.y &gt; MAX_FALLING_SPEED:</div><div class="line">		velocity.y = MAX_FALLING_SPEED</div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div></pre></td></tr></table></figure>
+<p>Now, the character must be jump correctly.</p>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/fixing_jump.gif" alt="Character Jump" title="Character Jump">
+<h3 id="Restrict-the-Jump-only-when-grounded"><a href="#Restrict-the-Jump-only-when-grounded" class="headerlink" title="Restrict the Jump, only when grounded"></a>Restrict the Jump, only when grounded</h3><p>We have a problem, the character can jump anywhere and everywhere! We need to make the jump can only be done while on the ground, that was the idea. But the implementation is not that simple. I will start from the dirty way. Add a new variable named <code>var last_frame_grounded = false</code>. Then modify our code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#other code</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -JUMP_POWER</div><div class="line"><span class="comment">#other code</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div><div class="line">		last_frame_grounded = true</div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		last_frame_grounded = false</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p>But the problem with this implementation is when the character on the air and meet a wall, he can jumping. Because <code>is_colliding()</code> will return true whenever the character gets collision, in this case, wall/ceiling will be detected as collision too. Look at the image for the illustration</p>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/restrict_jump_on_ground_only_wall_allowed.gif" alt="Jumping on Ground only, but wall detected as floor" title="Jumping on Ground only, but wall detected as floor">
+<p>So, to fix this, we need to determine our floor direction. Basically, floor direction is up which means <code>(0, -1)</code>. Modify our code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#other code</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div><div class="line">		<span class="comment"># if normal is floor, then set as grounded</span></div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/restrict_jump_on_ground_only.gif" alt="Jump Fixes" title="Jump Fixes">
+<p>Final code looks like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line">export var GRAVITY = <span class="number">10</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15</span></div><div class="line"></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line"></div><div class="line"><span class="comment"># jump power</span></div><div class="line">export var JUMP_POWER = <span class="number">5</span></div><div class="line"></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"><span class="comment"># store status of jump input</span></div><div class="line">var is_jump_pressed = false</div><div class="line"><span class="comment"># store status if last frame grounded</span></div><div class="line">var last_frame_grounded = false</div><div class="line"></div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -JUMP_POWER</div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		is_jump_pressed = false</div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line">	<span class="comment"># set the maximum falling speed</span></div><div class="line">	<span class="keyword">if</span> velocity.y &gt; MAX_FALLING_SPEED:</div><div class="line">		velocity.y = MAX_FALLING_SPEED</div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		last_frame_grounded = false</div></pre></td></tr></table></figure>
+<div class="alert warning"><p>This implementation only works with a game without slope ground, only flat ground which is the direction of the floor is (0, -1). You have been WARNED! I will make it more advance when Godot 3 release. So stay tuned on this website!</p>
+</div>
+<h3 id="Controlling-the-Jump-Height"><a href="#Controlling-the-Jump-Height" class="headerlink" title="Controlling the Jump Height"></a>Controlling the Jump Height</h3><p>The character jumps always at the same height. Most of the platformer game can control the jump height. So let’s implement it by modify and add some code.</p>
+<p>First, change the <code>export var JUMP_POWER = 5</code> to <code>export var MAX_JUMP_POWER = 5</code></p>
+<p>Then add one more variable <code>export var MIN_JUMP_POWER = 2</code></p>
+<p>Now, we need to modify our implementation at jump method.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#prev code</span></div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		<span class="keyword">if</span> movement.y &lt; -MIN_JUMP_POWER:</div><div class="line">			movement.y = -MIN_JUMP_POWER</div><div class="line">		is_jump_pressed = false</div><div class="line"><span class="comment">#next code</span></div></pre></td></tr></table></figure>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/controlling_jump_height.gif" alt="Controlling Jump Height" title="Controlling Jump Height">
+<p>So the final code looks like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line">export var GRAVITY = <span class="number">10</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15</span></div><div class="line"></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line"></div><div class="line"><span class="comment"># jump power</span></div><div class="line">export var MAX_JUMP_POWER = <span class="number">5</span></div><div class="line">export var MIN_JUMP_POWER = <span class="number">2</span></div><div class="line"></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"><span class="comment"># store status of jump input</span></div><div class="line">var is_jump_pressed = false</div><div class="line"><span class="comment"># store status if last frame grounded</span></div><div class="line">var last_frame_grounded = false</div><div class="line"></div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		<span class="keyword">if</span> movement.y &lt; -MIN_JUMP_POWER:</div><div class="line">			movement.y = -MIN_JUMP_POWER</div><div class="line">		is_jump_pressed = false</div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line">	<span class="comment"># set the maximum falling speed</span></div><div class="line">	<span class="keyword">if</span> velocity.y &gt; MAX_FALLING_SPEED:</div><div class="line">		velocity.y = MAX_FALLING_SPEED</div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		last_frame_grounded = false</div></pre></td></tr></table></figure>
+<h3 id="Multiple-Jump"><a href="#Multiple-Jump" class="headerlink" title="Multiple Jump"></a>Multiple Jump</h3><p>The idea is, the character can jump while in the air, but not infinite jump. Add 2 new variable, one for how many jumps can be done in the air, and the other is for counting how many jumps in the air has been done. If the counter has reached the maximum jump air can be done, the character can’t jump again. So let’s get started. Add 2 variable, <code>export var MAX_AIR_JUMP_COUNT = 2</code> and <code>var air_jump_count = 0</code>. Then modify our code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#other code</span></div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> !is_jump_pressed &amp;&amp; !last_frame_grounded &amp;&amp; air_jump_count &lt; MAX_AIR_JUMP_COUNT:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">			air_jump_count += <span class="number">1</span></div><div class="line">		is_jump_pressed = true</div><div class="line"><span class="comment">#other code</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		<span class="comment">#other code</span></div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line">			air_jump_count = <span class="number">0</span></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/multiple_jump.gif" alt="Multiple Jump" title="Multiple Jump">
+<p>I want to make the air jump is not as same height as the ground jump. So I will add 2 new variable for defines the air jump power, one for the max jump power and the other is for min jump power. Let’s add 2 new variable <code>export var MAX_AIR_JUMP_POWER = 3</code> and <code>export var MIN_AIR_JUMP_POWER = 1.5</code>. Then modify our code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">func _fixed_process(delta):</div><div class="line"><span class="comment">#other code</span></div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> !is_jump_pressed &amp;&amp; !last_frame_grounded &amp;&amp; air_jump_count &lt; MAX_AIR_JUMP_COUNT:</div><div class="line">			movement.y = -MAX_AIR_JUMP_POWER</div><div class="line">			air_jump_count += <span class="number">1</span></div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		<span class="keyword">if</span> air_jump_count != <span class="number">0</span> &amp;&amp; movement.y &lt; -MIN_AIR_JUMP_POWER:</div><div class="line">			movement.y = -MIN_AIR_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> movement.y &lt; -MIN_JUMP_POWER:</div><div class="line">			movement.y = -MIN_JUMP_POWER</div><div class="line">		is_jump_pressed = false</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<img src="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/multiple_jump.gif" alt="Multiple Jump" title="Multiple Jump">
+<p>The final code will look like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line"></div><div class="line">export var GRAVITY = <span class="number">10</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15</span></div><div class="line"></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line"></div><div class="line"><span class="comment"># jump power</span></div><div class="line">export var MAX_JUMP_POWER = <span class="number">5</span></div><div class="line">export var MIN_JUMP_POWER = <span class="number">2</span></div><div class="line">export var MAX_AIR_JUMP_POWER = <span class="number">3</span></div><div class="line">export var MIN_AIR_JUMP_POWER = <span class="number">1.5</span></div><div class="line">export var MAX_AIR_JUMP_COUNT = <span class="number">2</span></div><div class="line"></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"><span class="comment"># store status of jump input</span></div><div class="line">var is_jump_pressed = false</div><div class="line"><span class="comment"># store status if last frame grounded</span></div><div class="line">var last_frame_grounded = false</div><div class="line"><span class="comment">#store jump counter</span></div><div class="line">var air_jump_count = <span class="number">0</span></div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> !is_jump_pressed &amp;&amp; !last_frame_grounded &amp;&amp; air_jump_count &lt; MAX_AIR_JUMP_COUNT:</div><div class="line">			movement.y = -MAX_AIR_JUMP_POWER</div><div class="line">			air_jump_count += <span class="number">1</span></div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		<span class="keyword">if</span> air_jump_count != <span class="number">0</span> &amp;&amp; movement.y &lt; -MIN_AIR_JUMP_POWER:</div><div class="line">			movement.y = -MIN_AIR_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> movement.y &lt; -MIN_JUMP_POWER:</div><div class="line">			movement.y = -MIN_JUMP_POWER</div><div class="line">		is_jump_pressed = false</div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line">	<span class="comment"># set the maximum falling speed</span></div><div class="line">	<span class="keyword">if</span> velocity.y &gt; MAX_FALLING_SPEED:</div><div class="line">		velocity.y = MAX_FALLING_SPEED</div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div><div class="line">		<span class="comment"># if normal is floor, then set as grounded</span></div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line">			air_jump_count = <span class="number">0</span></div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		last_frame_grounded = false</div></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a> <a class="tag tag--primary tag--small t-link" href="/tags/platformer/">platformer</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" data-tooltip="Player Creation - Platformer Tutorial Part 2 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" data-tooltip="Player Creation - Platformer Tutorial Part 2 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://damarindra.com/"/>
-  <updated>2017-09-06T17:32:19.209Z</updated>
+  <updated>2017-09-06T17:22:03.133Z</updated>
   <id>http://damarindra.com/</id>
   
   <author>
@@ -14,39 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Tilemap, Camera and Fixing Player - Platformer Tutorial Part 4 - Godot</title>
-    <link href="http://damarindra.com/2017/09/07/godot-1-3-tilemap-and-camera/"/>
-    <id>http://damarindra.com/2017/09/07/godot-1-3-tilemap-and-camera/</id>
-    <published>2017-09-06T17:23:37.554Z</published>
-    <updated>2017-09-06T17:32:19.209Z</updated>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This is the fourth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain how to setup tilemap and camera.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
-    
-      <category term="tutorial" scheme="http://damarindra.com/categories/godot/tutorial/"/>
-    
-      <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
-    
-    
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
-      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
-    
-      <category term="game" scheme="http://damarindra.com/tags/game/"/>
-    
-      <category term="development" scheme="http://damarindra.com/tags/development/"/>
-    
-      <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
-    
-  </entry>
   
   <entry>
     <title>Tilemap and Camera - Platformer Tutorial Part 4 - Godot</title>
@@ -119,7 +86,7 @@
     <link href="http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"/>
     <id>http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/</id>
     <published>2017-08-28T05:08:08.414Z</published>
-    <updated>2017-09-06T13:50:18.844Z</updated>
+    <updated>2017-09-06T17:24:28.468Z</updated>
     
     <summary type="html">
     

@@ -1,0 +1,589 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>Player Animation - Platformer Tutorial Part 5 - Godot - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+        <link rel="icon" href="http://damarindra.com/assets/images/avatar.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="This is the fifth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain more about character setup, such animation and flipping.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Player Animation - Platformer Tutorial Part 5 - Godot">
+<meta property="og:url" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="This is the fifth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain more about character setup, such animation and flipping.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/flip.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/anim_node.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation_window.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation_window_creation.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation_window.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/idle.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/move.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/jump.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation.gif">
+<meta property="og:updated_time" content="2017-09-12T10:09:45.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Player Animation - Platformer Tutorial Part 5 - Godot">
+<meta name="twitter:description" content="This is the fifth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain more about character setup, such animation and flipping.">
+<meta name="twitter:image" content="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/flip.gif">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-105267687-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Player-Direction"><span class="toc-text">Player Direction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Animation"><span class="toc-text">Animation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Idle"><span class="toc-text">Idle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Move"><span class="toc-text">Move</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jump"><span class="toc-text">Jump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implements-the-Animation-into-Code"><span class="toc-text">Implements the Animation into Code</span></a></li></ol></li></ol>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Player Animation - Platformer Tutorial Part 5 - Godot
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-09-12T17:09:45+07:00">
+	
+		    Sep 12, 2017
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Player-Direction"><span class="toc-text">Player Direction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Animation"><span class="toc-text">Animation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Idle"><span class="toc-text">Idle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Move"><span class="toc-text">Move</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jump"><span class="toc-text">Jump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implements-the-Animation-into-Code"><span class="toc-text">Implements the Animation into Code</span></a></li></ol></li></ol></div></div>
+<p>This is the fifth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain more about character setup, such animation and flipping.<br><a id="more"></a></p>
+<ol>
+<li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/" title="Part 1 : Preparation">Part 1 : Preparation</a></li>
+<li><a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="Part 2 : Player Creation">Part 2 : Player Creation</a></li>
+<li><a href="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/" title="Part 3 : Player Creation 2">Part 3 : Player Creation 2</a></li>
+<li><a href="/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/" title="Part 4 : Tilemap and Camera">Part 4 : Tilemap and Camera</a></li>
+<li><strong>Part 5 : Player Animation</strong></li>
+</ol>
+<h2 id="Player-Direction"><a href="#Player-Direction" class="headerlink" title="Player Direction"></a>Player Direction</h2><p>Before we implements the animation, it will be good if the direction of the character is at the right way. If character go to the left direction, character should be facing at left direction and otherwise. In the previous part, we have create <strong>facing_dir</strong>, now it’s the time to use it to implements the player direction. Add one new variable <code>onready var sprite = get_node(&quot;Sprite&quot;)</code> and add one line code at the end of <code>_fixed_process</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	<span class="keyword">if</span> velocity.x != <span class="number">0</span>:</div><div class="line">		facing_dir = sign(velocity.x)</div><div class="line">	<span class="comment">#flip the character</span></div><div class="line">	sprite.set_flip_h(facing_dir != <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>Try it, and see what happens. When <strong>facing_dir</strong> is not equal than 1, the sprite will be flipping, and otherwise.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/flip.gif" alt="Flipping The Character" title="Flipping The Character">
+<h2 id="Animation"><a href="#Animation" class="headerlink" title="Animation"></a>Animation</h2><p>Animation in godot can be controlled by <strong>Animation Player</strong> or <strong>Animation Tree Player</strong> node. What we will use is the <strong>Animation Player</strong> node, add this node into our player. Open <strong>player.tscn</strong> and add <strong>Animation Player</strong> as a child of <strong>Player</strong> (KinematicBody2D). Then rename it as <strong>“anim”</strong>.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/anim_node.jpg" alt="Character Node Structure" title="Character Node Structure">
+<h3 id="Idle"><a href="#Idle" class="headerlink" title="Idle"></a>Idle</h3><p>Now, we are ready to animate the sprite. Select the <strong>anim</strong> node, <strong>Animation</strong> window will appear automatically at the bottom. Click new button for creating a new animation clip.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation_window.jpg" alt="Animation Window" title="Animation Window">
+<p>Then, give it a name as ‘Idle’. This clip will be our idle animation.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation_window_creation.jpg" alt="Animation Creation Window" title="Animation Creation Window">
+<p>Next, see picture below.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation_window.jpg" alt="Animation Window" title="Animation Window">
+<p>If you come from unity or you understand about animating, this will be not really hard. Idle animation only need 1 frame. Select the sprite node and see at Inspector. Do you notice it? There is <strong>key</strong> button on the right side each option. Find <strong>Frame</strong> option and make sure the value is <strong>0</strong>, then click the key (This action called as keyframe). As I said, idle only need 1 frame, leave it like that. Don’t forget to activate the <strong>Auto-play</strong> option (The button right after Animation name).</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/idle.gif" alt="Animation Idle" title="Animation Idle">
+<h3 id="Move"><a href="#Move" class="headerlink" title="Move"></a>Move</h3><p>Next, create a new animation clip called ‘Move’. ‘Move’ animation using 4 frames (0, 1, 2, 11), and the frame will change each 0.15 sec, set it into step (step = 0.15). So the length must be 0.75, this value is from <strong>total_frame &#42; step</strong>. Don’t forget to activate the <strong>loop</strong> option (The button right after step). Now our job is keyframing, select sprite node again, and keyframing!! See image below how I’ve done it.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/move.gif" alt="Animation Move" title="Animation Move">
+<h3 id="Jump"><a href="#Jump" class="headerlink" title="Jump"></a>Jump</h3><p>I’m sure I don’t need to explain this over again, jump is like idle, only need 1 frame, and the index frame is <strong>11</strong>. See image below how I’ve done it</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/jump.gif" alt="Animation Jump" title="Animation Jump">
+<div class="alert info"><p>Sorry, but explaining how UI works from text is really hard. I think video will be good for this.</p>
+</div>
+<h3 id="Implements-the-Animation-into-Code"><a href="#Implements-the-Animation-into-Code" class="headerlink" title="Implements the Animation into Code"></a>Implements the Animation into Code</h3><p>Add 2 new variable <code>var last_anim = &quot;&quot;</code> and <code>onready var anim = get_node(&quot;anim&quot;)</code>. Then, add this code at the last line inside of <code>_fixed_process</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	sprite.set_flip_h(facing_dir != <span class="number">1</span>)</div><div class="line"></div><div class="line">	var new_anim = <span class="string">"Idle"</span></div><div class="line">	<span class="keyword">if</span> last_frame_grounded:</div><div class="line">		<span class="keyword">if</span> velocity.x != <span class="number">0</span>:</div><div class="line">			new_anim = <span class="string">"Move"</span></div><div class="line">	<span class="keyword">else</span></div><div class="line">		new_anim = <span class="string">"Jump"</span></div><div class="line"></div><div class="line">	<span class="comment">#apply animation</span></div><div class="line">	<span class="keyword">if</span> new_anim != last_anim:</div><div class="line">		anim.play(new_anim)</div><div class="line">		last_anim = new_anim</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<div class="alert info"><p><strong>TLDR</strong>, if grounded and velocity.x not 0, then set move. If velocity.y not 0, then set jump, otherwise just idle.</p>
+</div>
+<p><code>last_anim</code> store our last frame animation played. <code>new_anim</code> store what animation will be played in current frame. If the character grounded and velocity not 0, then <code>new_anim</code> set as Move. If not grounded, then set the <code>new_anim</code> as jump. Then, we need to check if our last frame animation is not equal as new animation, if the condition meet, then play the animation.</p>
+<img src="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/animation.gif" alt="Animation" title="Animation">
+<p>This is the full code of player.gd</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line">export var GRAVITY = <span class="number">10</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15</span></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = <span class="number">0</span></div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = <span class="number">0</span></div><div class="line"><span class="comment"># jump power</span></div><div class="line">export var MAX_JUMP_POWER = <span class="number">5</span></div><div class="line">export var MIN_JUMP_POWER = <span class="number">2</span></div><div class="line">export var MAX_AIR_JUMP_POWER = <span class="number">3</span></div><div class="line">export var MIN_AIR_JUMP_POWER = <span class="number">1</span></div><div class="line">export var MAX_AIR_JUMP_COUNT = <span class="number">2</span></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"><span class="comment"># store status of jump input</span></div><div class="line">var is_jump_pressed = false</div><div class="line"><span class="comment"># store status if last frame grounded</span></div><div class="line">var last_frame_grounded = false</div><div class="line"><span class="comment">#store jump counter</span></div><div class="line">var air_jump_count = <span class="number">0</span></div><div class="line">var facing_dir = <span class="number">1</span></div><div class="line">var last_anim = <span class="string">""</span></div><div class="line">onready var anim = get_node(<span class="string">"anim"</span>)</div><div class="line"></div><div class="line">onready var sprite = get_node(<span class="string">"Sprite"</span>)</div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">	dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line">	last_anim = anim.get_current_animation()</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line">func _fixed_process(delta):</div><div class="line"></div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line"></div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> !is_jump_pressed &amp;&amp; !last_frame_grounded &amp;&amp; air_jump_count &lt; MAX_AIR_JUMP_COUNT:</div><div class="line">			movement.y = -MAX_AIR_JUMP_POWER</div><div class="line">			air_jump_count += <span class="number">1</span></div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		<span class="keyword">if</span> air_jump_count != <span class="number">0</span> &amp;&amp; movement.y &lt; -MIN_AIR_JUMP_POWER:</div><div class="line">			movement.y = -MIN_AIR_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> movement.y &lt; -MIN_JUMP_POWER:</div><div class="line">			movement.y = -MIN_JUMP_POWER</div><div class="line">		is_jump_pressed = false</div><div class="line"></div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line">	<span class="comment"># set the maximum falling speed</span></div><div class="line">	<span class="keyword">if</span> velocity.y &gt; MAX_FALLING_SPEED:</div><div class="line">		velocity.y = MAX_FALLING_SPEED</div><div class="line"></div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		var normal = get_collision_normal()</div><div class="line"></div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		move(remaining_movement)</div><div class="line">		<span class="comment"># if normal is floor, then set as grounded</span></div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line">			air_jump_count = <span class="number">0</span></div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		last_frame_grounded = false</div><div class="line"></div><div class="line"></div><div class="line">	<span class="keyword">if</span> velocity.x != <span class="number">0</span>:</div><div class="line">		facing_dir = sign(velocity.x)</div><div class="line"></div><div class="line">	sprite.set_flip_h(facing_dir != <span class="number">1</span>)</div><div class="line"></div><div class="line">	var new_anim = <span class="string">"Idle"</span></div><div class="line">	<span class="keyword">if</span> last_frame_grounded:</div><div class="line">		<span class="keyword">if</span> velocity.x != <span class="number">0</span>:</div><div class="line">			new_anim = <span class="string">"Move"</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		new_anim = <span class="string">"Jump"</span></div><div class="line"></div><div class="line">	<span class="comment">#apply animation</span></div><div class="line">	<span class="keyword">if</span> new_anim != last_anim:</div><div class="line">		anim.play(new_anim)</div><div class="line">		last_anim = new_anim</div><div class="line"></div><div class="line">func get_center_pos():</div><div class="line">	<span class="keyword">return</span> get_pos() + get_node(<span class="string">"CollisionShape2D"</span>).get_pos()</div></pre></td></tr></table></figure>
+<p>Today that is enough, the next part will be parallax background, stay tuned!</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/" data-tooltip="Tilemap and Camera - Platformer Tutorial Part 4 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/" data-tooltip="Tilemap and Camera - Platformer Tutorial Part 4 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

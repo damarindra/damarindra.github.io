@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>Parallax Background and Level Bounds - Platformer Tutorial Part 6 - Godot - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+        <link rel="icon" href="http://damarindra.com/assets/images/avatar.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain using parallax background node and make level bounds.">
+<meta name="keywords" content="Godot,gamedev,game,development,platformer">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Parallax Background and Level Bounds - Platformer Tutorial Part 6 - Godot">
+<meta property="og:url" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain using parallax background node and make level bounds.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax_bg_node.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/setup_sprite.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax_layer.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/bounds.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/setup_position.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/camera_restrict.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/player_restrict.gif">
+<meta property="og:updated_time" content="2017-09-16T05:08:25.356Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Parallax Background and Level Bounds - Platformer Tutorial Part 6 - Godot">
+<meta name="twitter:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain using parallax background node and make level bounds.">
+<meta name="twitter:image" content="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax_bg_node.jpg">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-105267687-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallax-Background"><span class="toc-text">Parallax Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-Sprite"><span class="toc-text">Setup Sprite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-Parallax-Layer"><span class="toc-text">Setup Parallax Layer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Level-Bounds"><span class="toc-text">Level Bounds</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-Level-Bounds"><span class="toc-text">Setup Level Bounds</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restrict-Camera-Render-Only-Inside-Level-Bounds"><span class="toc-text">Restrict Camera Render Only Inside Level Bounds</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restrict-Player-Movement"><span class="toc-text">Restrict Player Movement</span></a></li></ol></li></ol>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Parallax Background and Level Bounds - Platformer Tutorial Part 6 - Godot
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-09-16T12:07:19+07:00">
+	
+		    Sep 16, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/godot/">godot</a>, <a class="category-link" href="/categories/godot/tutorial/">tutorial</a>, <a class="category-link" href="/categories/godot/tutorial/tutorial-platformer/">tutorial_platformer</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallax-Background"><span class="toc-text">Parallax Background</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-Sprite"><span class="toc-text">Setup Sprite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-Parallax-Layer"><span class="toc-text">Setup Parallax Layer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Level-Bounds"><span class="toc-text">Level Bounds</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-Level-Bounds"><span class="toc-text">Setup Level Bounds</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restrict-Camera-Render-Only-Inside-Level-Bounds"><span class="toc-text">Restrict Camera Render Only Inside Level Bounds</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Restrict-Player-Movement"><span class="toc-text">Restrict Player Movement</span></a></li></ol></li></ol></div></div>
+<p>This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial I will explain using parallax background node and make level bounds.<br><a id="more"></a></p>
+<ol>
+<li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/" title="Part 1 : Preparation">Part 1 : Preparation</a></li>
+<li><a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="Part 2 : Player Creation">Part 2 : Player Creation</a></li>
+<li><a href="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/" title="Part 3 : Player Creation 2">Part 3 : Player Creation 2</a></li>
+<li><a href="/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/" title="Part 4 : Tilemap and Camera">Part 4 : Tilemap and Camera</a></li>
+<li><a href="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/" title="Part 5 : Player Animation">Part 5 : Player Animation</a></li>
+<li><strong>Part 6 : Parallax Background and Level Bounds</strong></li>
+</ol>
+<h2 id="Parallax-Background"><a href="#Parallax-Background" class="headerlink" title="Parallax Background"></a>Parallax Background</h2><p>Godot provides <strong>Parallax Background</strong> node, we don’t need to code our background because what we need is already in <strong>Parallax Background</strong> node. Create a new <strong>Parallax Background</strong> node inside our root node. Inside <strong>ParallaxBackground</strong> node, create a new <strong>ParallaxLayer</strong> node and inside <strong>ParallaxLayer</strong> node, create a new <strong>Sprite</strong> node. So this is how it looks like.</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax_bg_node.jpg" alt="Parallax Background Node" title="Parallax Background Node">
+<div class="alert info"><p><strong>ParallaxBackground</strong> : Container node for parallax layer, all ParallaxLayer must be inside ParallaxBackground. ParallaxBackground also has inspector option, you can learn more by visiting Godot documentation.</p>
+<p><strong>ParallaxLayer</strong> : Container for parallax sprite. Drop all sprite into this layer and will be automatically moving depending on camera movement. ParallaxLayer has inspector option for motion. <strong>scale</strong> for movement speed, 1 makes sprite not moving (only repeating), 0 makes sprite always follow camera movement. <strong>offset</strong> as it says, for offset. <strong>mirroring</strong> makes sprite will repeating after a certain point.</p>
+</div>
+<h3 id="Setup-Sprite"><a href="#Setup-Sprite" class="headerlink" title="Setup Sprite"></a>Setup Sprite</h3><p>This time, our sprite configuration is a little bit different. Load our texture as we used to be. After that, disable the <strong>Centered</strong> option, this makes our sprite start from <em>top left</em>, this is <strong>IMPORTANT</strong> for making parallax. Next activate the <strong>Region</strong> and set the <strong>Region Rect</strong> into (0, 176, 160, 128). As you can see, we using <strong>Region Rect</strong> instead of <strong>VFrames</strong> and <strong>HFrames</strong>. <strong>Region Rect</strong> cut our sprite directly from a specific point.</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/setup_sprite.jpg" alt="Sprite" title="Sprite">
+<h3 id="Setup-Parallax-Layer"><a href="#Setup-Parallax-Layer" class="headerlink" title="Setup Parallax Layer"></a>Setup Parallax Layer</h3><p>Select the <strong>ParallaxLayer</strong> node and setup the Motion. Set the <strong>Scale</strong> value to (0.5, 0.2), you can play this value. Set the <strong>Mirroring</strong> to (160,0).</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax_layer.jpg" alt="Parallax Layer Inspector" title="Parallax Layer Inspector">
+<p>Our Parallax Background ready! Just give it a try..</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/parallax.gif" alt="Parallax Gif" title="Parallax Gif">
+<h2 id="Level-Bounds"><a href="#Level-Bounds" class="headerlink" title="Level Bounds"></a>Level Bounds</h2><p>Level bounds have 4 points, left, top, right, bottom. The function is creating bounds for the level. The camera will only render inside the bounds. Player can’t move outside the level bounds, however, we can set up the restriction.</p>
+<h3 id="Setup-Level-Bounds"><a href="#Setup-Level-Bounds" class="headerlink" title="Setup Level Bounds"></a>Setup Level Bounds</h3><p>Create <strong>Node2D</strong> inside the root node, rename it as “Bounds”. Inside <strong>Bounds</strong> create 4 <strong>Position2D</strong> and give it name “Right”, “Left”, “Top”, “Bottom”.</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/bounds.jpg" alt="Level Bounds" title="Level Bounds">
+<p>Now, move all of the <strong>Position2D</strong>. Same as the name, place the “Right” at the right position and do it to all of <strong>Position2D</strong> until forming a rectangle shape.</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/setup_position.gif" alt="Setup Position 2D" title="Setup Position 2D">
+<div class="alert info"><p><strong>PRO TIPS</strong> : When playing with the scene view, I always using <strong>Move Mode</strong>. If you come from unity, <strong>Select Mode</strong> in Godot is a little bit frustrating because our primary action is <strong>Select</strong>. Using <strong>Move Mode</strong> will make your action into <strong>Move</strong>. I always end up selecting a node from <strong>Scene Hierarchy</strong> Window. However, you can use <strong>Alt + Mouse</strong> to moving while using <strong>Select Mode</strong>. Each person has different taste, so my method is not for all people.</p>
+</div>
+<h3 id="Restrict-Camera-Render-Only-Inside-Level-Bounds"><a href="#Restrict-Camera-Render-Only-Inside-Level-Bounds" class="headerlink" title="Restrict Camera Render Only Inside Level Bounds"></a>Restrict Camera Render Only Inside Level Bounds</h3><p>Okay, if you are sure your Level Bounds formed as a rectangle, then we are ready for using it. Create a script <strong>level_bounds.gd</strong> and attach it into <strong>Bounds</strong>. Then write the code</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">extends Node2D</div><div class="line"></div><div class="line">func get_left():</div><div class="line">	<span class="keyword">return</span> get_node(<span class="string">"Left"</span>).get_global_pos().x</div><div class="line"></div><div class="line">func get_right():</div><div class="line">	<span class="keyword">return</span> get_node(<span class="string">"Right"</span>).get_global_pos().x</div><div class="line"></div><div class="line">func get_top():</div><div class="line">	<span class="keyword">return</span> get_node(<span class="string">"Top"</span>).get_global_pos().y</div><div class="line"></div><div class="line">func get_bottom():</div><div class="line">	<span class="keyword">return</span> get_node(<span class="string">"Bottom"</span>).get_global_pos().y</div></pre></td></tr></table></figure>
+<p>The script only contains method to get each edge position. Next, open <strong>camera.gd</strong> and add this code</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line"></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> (target_pos.x + get_offset().x - get_viewport_rect().size.x/<span class="number">2</span> &lt; bounds.get_left()):</div><div class="line">		target_pos.x = bounds.get_left() - get_offset().x + get_viewport_rect().size.x/<span class="number">2</span></div><div class="line">	<span class="keyword">elif</span> (target_pos.x + get_offset().x + get_viewport_rect().size.x/<span class="number">2</span> &gt; bounds.get_right()):</div><div class="line">		target_pos.x = bounds.get_right() - get_offset().x - get_viewport_rect().size.x/<span class="number">2</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> (target_pos.y + get_offset().y - get_viewport_rect().size.y/<span class="number">2</span> &lt; bounds.get_top()):</div><div class="line">		target_pos.y = bounds.get_top() - get_offset().y + get_viewport_rect().size.y/<span class="number">2</span></div><div class="line">	<span class="keyword">elif</span> (target_pos.y + get_offset().y + get_viewport_rect().size.y/<span class="number">2</span> &gt; bounds.get_bottom()):</div><div class="line">		target_pos.y = bounds.get_bottom() - get_offset().y - get_viewport_rect().size.y/<span class="number">2</span></div><div class="line"></div><div class="line">	set_pos(Vector2(round(target_pos.x), round(target_pos.y)))</div></pre></td></tr></table></figure>
+<p>The script will restrict the camera movement to only render inside the level bounds. So make sure your level bounds is bigger than camera render area.</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/camera_restrict.gif" alt="Camera Restricted" title="Camera Restricted">
+<h3 id="Restrict-Player-Movement"><a href="#Restrict-Player-Movement" class="headerlink" title="Restrict Player Movement"></a>Restrict Player Movement</h3><p>Now, restrict the player movement, but we only using left, right, and top. Basically, when player falling down will die right? so we don’t need to restrict the bottom side. Open the <strong>level_bounds.gd</strong> and add this variable</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">extends Node2D</div><div class="line"></div><div class="line">export var left_stop = true</div><div class="line">export var right_stop = true</div><div class="line">export var top_stop = true</div><div class="line"></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p><strong>True</strong> means stopping the player movement, and <strong>false</strong> means let the player passing. Next, modify our <strong>player.gd</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line"></div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line"></div><div class="line">	<span class="keyword">if</span> get_center_pos().x + velocity.x &lt; bounds.get_left() <span class="keyword">and</span> bounds.left_stop:</div><div class="line">		velocity.x = bounds.get_left()-get_center_pos().x</div><div class="line">	<span class="keyword">elif</span> get_center_pos().x + velocity.x &gt; bounds.get_right() <span class="keyword">and</span> bounds.right_stop:</div><div class="line">		velocity.x = bounds.get_right()-get_center_pos().x</div><div class="line">	<span class="keyword">if</span> get_center_pos().y + velocity.y &lt; bounds.get_top() <span class="keyword">and</span> bounds.top_stop:</div><div class="line">		velocity.y = bounds.get_top() - get_center_pos().y</div><div class="line"></div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	var remaining_movement = move(velocity)</div><div class="line">	<span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p>The result will be like this</p>
+<img src="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/player_restrict.gif" alt="Player Restricted" title="Player Restricted">
+<p>Next tutorial will be about enemy, so there will be explanation about taking damage, giving damage and other things!!</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a> <a class="tag tag--primary tag--small t-link" href="/tags/platformer/">platformer</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/" data-tooltip="Player Animation - Platformer Tutorial Part 5 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/" data-tooltip="Player Animation - Platformer Tutorial Part 5 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

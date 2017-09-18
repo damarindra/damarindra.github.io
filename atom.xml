@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://damarindra.com/"/>
-  <updated>2017-09-18T21:24:47.005Z</updated>
+  <updated>2017-09-18T21:25:58.125Z</updated>
   <id>http://damarindra.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/"/>
     <id>http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/</id>
     <published>2017-09-18T21:09:19.000Z</published>
-    <updated>2017-09-18T21:24:47.005Z</updated>
+    <updated>2017-09-18T21:25:58.125Z</updated>
     
     <summary type="html">
     
       &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.&lt;br&gt;
+&lt;p&gt;This is the seven part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will refactoring the player.gd code structure and creating Enemy.&lt;br&gt;
     
     </summary>
     

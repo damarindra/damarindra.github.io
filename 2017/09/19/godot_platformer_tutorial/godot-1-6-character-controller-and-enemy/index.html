@@ -15,13 +15,13 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
+    <meta name="description" content="This is the seven part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will refactoring the player.gd code structure and creating Enemy.">
 <meta name="keywords" content="Godot,gamedev,game,development,platformer">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
 <meta property="og:url" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/index.html">
 <meta property="og:site_name" content="Damar Indra">
-<meta property="og:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
+<meta property="og:description" content="This is the seven part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will refactoring the player.gd code structure and creating Enemy.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/player.jpg">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/slime.jpg">
@@ -33,10 +33,10 @@
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_hole.gif">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/stuck.gif">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/edge_lb.gif">
-<meta property="og:updated_time" content="2017-09-18T21:24:47.005Z">
+<meta property="og:updated_time" content="2017-09-18T21:25:58.125Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
-<meta name="twitter:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
+<meta name="twitter:description" content="This is the seven part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will refactoring the player.gd code structure and creating Enemy.">
 <meta name="twitter:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/player.jpg">
 <meta name="twitter:creator" content="@damarind">
     
@@ -306,7 +306,7 @@
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
             <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Refactoring-the-Player-and-Create-Character-Controller"><span class="toc-text">Refactoring the Player and Create Character Controller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Character-Controller-Script"><span class="toc-text">Character Controller Script</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Enemy-Node"><span class="toc-text">Create Enemy Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enemy-Script"><span class="toc-text">Enemy Script</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enemy-Animation"><span class="toc-text">Enemy Animation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hole-Detection"><span class="toc-text">Hole Detection</span></a></li></ol></li></ol></div></div>
-<p>This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.<br><a id="more"></a></p>
+<p>This is the seven part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will refactoring the player.gd code structure and creating Enemy.<br><a id="more"></a></p>
 <ol>
 <li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/" title="Part 1 : Preparation">Part 1 : Preparation</a></li>
 <li><a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="Part 2 : Player Creation">Part 2 : Player Creation</a></li>

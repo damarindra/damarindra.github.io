@@ -28,11 +28,11 @@
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_moving.gif">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_animation.gif">
-<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_raycaster.jpg">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_pos.gif">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_hole.gif">
 <meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/edge_lb.gif">
-<meta property="og:updated_time" content="2017-09-18T21:09:19.608Z">
+<meta property="og:updated_time" content="2017-09-18T21:22:22.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
 <meta name="twitter:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
@@ -351,7 +351,7 @@
 <div class="alert info"><p><strong>Raycast</strong> : Query the closest object intersecting a ray. Vector Ray can be set by calling <strong>set_cast_to(Vector2)</strong>. Don’t know how ray works? Imagine you have a laser, laser light will stop after reaching an object. Yes, a ray is like a laser.</p>
 </div>
 <p>Try to play it with Debug Visible Collision Shapes enabled, at the right side of Slime you will see arrow down indicating raycasting down.</p>
-<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg" alt="Example Enemy Level" title="Example Enemy Level">
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_raycaster.jpg" alt="Enemy RayCast2D" title="Enemy RayCast2D">
 <p>When slime moving left, raycast still at the right side right? we need to change the raycast position whenever the slime is changing direction</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	controller.collision_handling(remaining_movement)</div><div class="line"></div><div class="line">	hole_raycaster.set_pos(get_node(<span class="string">"CollisionShape2D"</span>).get_pos() + Vector2(move_dir, <span class="number">0</span>) * get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x)</div><div class="line"></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
 <p>You can test it now, the position of Raycast must be change when the slime direction is changing.</p>

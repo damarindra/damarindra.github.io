@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>Character Controller and Enemy - Platformer Tutorial Part 7 - Godot - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+        <link rel="icon" href="http://damarindra.com/assets/images/avatar.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
+<meta name="keywords" content="Godot,gamedev,game,development,platformer">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
+<meta property="og:url" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/player.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/slime.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_moving.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_animation.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_pos.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_hole.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/edge_lb.gif">
+<meta property="og:updated_time" content="2017-09-18T21:09:19.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
+<meta name="twitter:description" content="This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.">
+<meta name="twitter:image" content="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/player.jpg">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-105267687-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Refactoring-the-Player-and-Create-Character-Controller"><span class="toc-text">Refactoring the Player and Create Character Controller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Character-Controller-Script"><span class="toc-text">Character Controller Script</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Enemy-Node"><span class="toc-text">Create Enemy Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enemy-Script"><span class="toc-text">Enemy Script</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enemy-Animation"><span class="toc-text">Enemy Animation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hole-Detection"><span class="toc-text">Hole Detection</span></a></li></ol></li></ol>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Character Controller and Enemy - Platformer Tutorial Part 7 - Godot
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-09-19T04:09:19+07:00">
+	
+		    Sep 19, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/godot/">godot</a>, <a class="category-link" href="/categories/godot/tutorial/">tutorial</a>, <a class="category-link" href="/categories/godot/tutorial/tutorial-platformer/">tutorial_platformer</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Refactoring-the-Player-and-Create-Character-Controller"><span class="toc-text">Refactoring the Player and Create Character Controller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Character-Controller-Script"><span class="toc-text">Character Controller Script</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Enemy-Node"><span class="toc-text">Create Enemy Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enemy-Script"><span class="toc-text">Enemy Script</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enemy-Animation"><span class="toc-text">Enemy Animation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hole-Detection"><span class="toc-text">Hole Detection</span></a></li></ol></li></ol></div></div>
+<p>This is the sixth part of the tutorial creating platformer game on Godot Engine. In this tutorial, I will explain using parallax background node and make level bounds.<br><a id="more"></a></p>
+<ol>
+<li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/" title="Part 1 : Preparation">Part 1 : Preparation</a></li>
+<li><a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="Part 2 : Player Creation">Part 2 : Player Creation</a></li>
+<li><a href="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/" title="Part 3 : Player Creation 2">Part 3 : Player Creation 2</a></li>
+<li><a href="/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/" title="Part 4 : Tilemap and Camera">Part 4 : Tilemap and Camera</a></li>
+<li><a href="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/" title="Part 5 : Player Animation">Part 5 : Player Animation</a></li>
+<li><a href="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/" title="Part 6 : Parallax Background and Level Bounds">Part 6 : Parallax Background and Level Bounds</a></li>
+<li><strong>Part 7 : Character Controller and Enemy</strong></li>
+</ol>
+<h2 id="Refactoring-the-Player-and-Create-Character-Controller"><a href="#Refactoring-the-Player-and-Create-Character-Controller" class="headerlink" title="Refactoring the Player and Create Character Controller"></a>Refactoring the Player and Create Character Controller</h2><p>Character Controller is a script to calculate our character movement. Currently, we have a player and we code all movement calculation inside <strong>player.gd</strong>. Now we need to <strong>Refactor</strong> our player.gd script and move some code inside player.gd into character controller script. Our first job is <strong>Refactor player.gd</strong></p>
+<h3 id="Character-Controller-Script"><a href="#Character-Controller-Script" class="headerlink" title="Character Controller Script"></a>Character Controller Script</h3><p>Open Player.tscn and create a new <strong>Node</strong> (not Node2D, okay?) and rename it as <strong>“Controller”</strong>. Create a script with name <strong>character_controller.gd</strong> and attach it to <strong>Controller</strong>. Now it’s time for refactoring our code structure. I’m not explaining too much since this action only moving our code calculation from player.gd to character_controller.gd. Copy this code and paste to character_controller.gd</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line">extends Node</div><div class="line"></div><div class="line"><span class="comment"># defines GRAVITY</span></div><div class="line"><span class="comment"># `export` makes your variable editable in the editor</span></div><div class="line"><span class="comment"># `var GRAVITY = 10` defines a variable named GRAVITY and assign it 10</span></div><div class="line">export var GRAVITY = <span class="number">10.0</span></div><div class="line"><span class="comment"># set the maximum falling speed per frame</span></div><div class="line">export var MAX_FALLING_SPEED = <span class="number">15.0</span></div><div class="line"><span class="comment"># MOVE_SPEED</span></div><div class="line">export var MOVE_SPEED = <span class="number">5.0</span></div><div class="line">export var MOVE_SPEED_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var move_step = <span class="number">0.0</span></div><div class="line">export var DECELERATION_TIME_NEEDED = <span class="number">.15</span></div><div class="line">var dec_step = <span class="number">0.0</span></div><div class="line"><span class="comment"># jump power</span></div><div class="line">export var MAX_JUMP_POWER = <span class="number">5.0</span></div><div class="line">export var MIN_JUMP_POWER = <span class="number">2.0</span></div><div class="line">export var MAX_AIR_JUMP_POWER = <span class="number">3.0</span></div><div class="line">export var MIN_AIR_JUMP_POWER = <span class="number">1.0</span></div><div class="line">export var MAX_AIR_JUMP_COUNT = <span class="number">2.0</span></div><div class="line"><span class="comment"># store the player velocity</span></div><div class="line">var velocity = Vector2()</div><div class="line"><span class="comment"># store status of jump input</span></div><div class="line">var is_jump_pressed = false</div><div class="line"><span class="comment"># store status if last frame grounded</span></div><div class="line">var last_frame_grounded = false</div><div class="line"><span class="comment">#store jump counter</span></div><div class="line">var air_jump_count = <span class="number">0</span></div><div class="line">var facing_dir = <span class="number">1</span></div><div class="line"></div><div class="line">onready var bounds = get_node(<span class="string">"/root"</span>).get_child(<span class="number">0</span>).get_node(<span class="string">"Bounds"</span>)</div><div class="line">onready var kb = get_node(<span class="string">".."</span>)</div><div class="line"></div><div class="line">func _ready():</div><div class="line">	move_step = MOVE_SPEED / MOVE_SPEED_TIME_NEEDED</div><div class="line">	dec_step = MOVE_SPEED / DECELERATION_TIME_NEEDED</div><div class="line"></div><div class="line">func move(right_input, left_input, jump_input, delta):</div><div class="line">	<span class="keyword">if</span> !verify():</div><div class="line">		print(<span class="string">"Parent is invalid! Parent must be KinematicBody2D"</span>)</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span></div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line"></div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="keyword">elif</span> movement.x != <span class="number">0</span>:</div><div class="line">		<span class="comment">#get the direction of movement</span></div><div class="line">		var _dir = sign(movement.x)</div><div class="line">		<span class="comment">#calculate deceleration amount and direction</span></div><div class="line">		var _dec = _dir * <span class="number">-1</span> * dec_step * delta</div><div class="line">		<span class="comment"># apply to movement</span></div><div class="line">		movement.x += _dec</div><div class="line">		<span class="comment"># stop it when reached 0</span></div><div class="line">		<span class="keyword">if</span> _dir == <span class="number">1</span> &amp;&amp; movement.x &lt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> _dir == <span class="number">-1</span> &amp;&amp; movement.x &gt; <span class="number">0</span>:</div><div class="line">			movement.x = <span class="number">0</span></div><div class="line">	<span class="comment">#if the movement.x more that max_speed, gap it</span></div><div class="line">	<span class="keyword">if</span> abs(movement.x) &gt; MOVE_SPEED:</div><div class="line">		movement.x = sign(movement.x) * MOVE_SPEED</div><div class="line"></div><div class="line">	<span class="comment">#Apply jumping</span></div><div class="line">	<span class="keyword">if</span> jump_input:</div><div class="line">		<span class="keyword">if</span> !is_jump_pressed &amp;&amp; last_frame_grounded:</div><div class="line">			movement.y = -MAX_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> !is_jump_pressed &amp;&amp; !last_frame_grounded &amp;&amp; air_jump_count &lt; MAX_AIR_JUMP_COUNT:</div><div class="line">			movement.y = -MAX_AIR_JUMP_POWER</div><div class="line">			air_jump_count += <span class="number">1</span></div><div class="line">		is_jump_pressed = true</div><div class="line">	<span class="keyword">elif</span> !jump_input &amp;&amp; is_jump_pressed:</div><div class="line">		<span class="keyword">if</span> air_jump_count != <span class="number">0</span> &amp;&amp; movement.y &lt; -MIN_AIR_JUMP_POWER:</div><div class="line">			movement.y = -MIN_AIR_JUMP_POWER</div><div class="line">		<span class="keyword">elif</span> movement.y &lt; -MIN_JUMP_POWER:</div><div class="line">			movement.y = -MIN_JUMP_POWER</div><div class="line">		is_jump_pressed = false</div><div class="line"></div><div class="line">	<span class="comment"># set the velocity = movement</span></div><div class="line">	velocity = movement</div><div class="line"></div><div class="line">	<span class="keyword">if</span> get_center_pos().x - kb.get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x + velocity.x &lt; bounds.get_left() <span class="keyword">and</span> bounds.left_stop:</div><div class="line">		velocity.x = bounds.get_left()-get_center_pos().x + kb.get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x</div><div class="line">	<span class="keyword">elif</span> get_center_pos().x + kb.get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x + velocity.x &gt; bounds.get_right() <span class="keyword">and</span> bounds.right_stop:</div><div class="line">		velocity.x = bounds.get_right()-get_center_pos().x - kb.get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x</div><div class="line">	<span class="keyword">if</span> get_center_pos().y - kb.get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().y + velocity.y &lt; bounds.get_top() <span class="keyword">and</span> bounds.top_stop:</div><div class="line">		velocity.y = bounds.get_top() - get_center_pos().y+ kb.get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x</div><div class="line"></div><div class="line">	<span class="comment"># apply the movement by calling move(velocity) and store the remaining movement</span></div><div class="line">	<span class="keyword">return</span> kb.move(velocity)</div><div class="line"></div><div class="line">func collision_handling(remaining_movement):</div><div class="line">	<span class="comment"># collision handling</span></div><div class="line">	<span class="keyword">if</span> kb.is_colliding():</div><div class="line">		var normal = kb.get_collision_normal()</div><div class="line"></div><div class="line">		remaining_movement = normal.slide(remaining_movement)</div><div class="line">		velocity = normal.slide(velocity)</div><div class="line">		kb.move(remaining_movement)</div><div class="line">		<span class="comment"># if normal is floor, then set as grounded</span></div><div class="line">		<span class="keyword">if</span> normal == Vector2(<span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">			last_frame_grounded = true</div><div class="line">			air_jump_count = <span class="number">0</span></div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		last_frame_grounded = false</div><div class="line"></div><div class="line">	<span class="keyword">if</span> velocity.x != <span class="number">0</span>:</div><div class="line">		facing_dir = sign(velocity.x)</div><div class="line"></div><div class="line">func verify():</div><div class="line">	<span class="keyword">if</span> kb.is_type(<span class="string">"KinematicBody2D"</span>):</div><div class="line">		<span class="keyword">return</span> true</div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		print(<span class="string">"Failed to verify"</span>)</div><div class="line">		<span class="keyword">return</span> false</div><div class="line"></div><div class="line">func get_center_pos():</div><div class="line">	<span class="keyword">if</span> verify():</div><div class="line">		<span class="keyword">return</span> kb.get_pos() + kb.get_node(<span class="string">"CollisionShape2D"</span>).get_pos()</div><div class="line">	<span class="keyword">return</span> Vector2()</div></pre></td></tr></table></figure>
+<p>See, not really different with the player.gd right? Okay, I will only explain important part</p>
+<p>Since the attached script is not the <strong>KinematicBody2D</strong>, we can’t call all KinematicBody2D function directly from character_controller.gd. We need to find our <strong>KinematicBody2D</strong> with this code <code>onready var kb = get_node(&quot;..&quot;)</code> to call the KinematicBody2D function (ex : move, is_colliding).</p>
+<p><code>func verify()</code> will verify our controller parent is KinematicBody2D. If the parent is not KinematicBody2D then, return false.</p>
+<p>Okay, crystal clear right? Then copy this code into our player.gd</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line">var last_anim = <span class="string">""</span></div><div class="line">onready var anim = get_node(<span class="string">"anim"</span>)</div><div class="line">onready var sprite = get_node(<span class="string">"Sprite"</span>)</div><div class="line">onready var controller = get_node(<span class="string">"Controller"</span>)</div><div class="line"></div><div class="line"><span class="comment"># Called when the node is "ready", that means called when the game started.</span></div><div class="line"><span class="comment"># Use this function for initialize</span></div><div class="line">func _ready():</div><div class="line">	last_anim = anim.get_current_animation()</div><div class="line">	<span class="comment"># makes `_fixed_process(delta)` running</span></div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line"><span class="comment"># Called during the fixed processing step of the main loop.</span></div><div class="line"><span class="comment"># Fixed processing means that the frame rate is synced to the physics,</span></div><div class="line"><span class="comment"># i.e. the delta variable should be constant.</span></div><div class="line"><span class="comment"># only active when set_fixed_process(true) is called</span></div><div class="line"></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#input</span></div><div class="line">	var right_input = Input.is_action_pressed(<span class="string">"right"</span>)</div><div class="line">	var left_input = Input.is_action_pressed(<span class="string">"left"</span>)</div><div class="line">	var jump_input = Input.is_action_pressed(<span class="string">"jump"</span>)</div><div class="line"></div><div class="line">	var remaining_movement = controller.move(right_input, left_input, jump_input, delta)</div><div class="line">	controller.collision_handling(remaining_movement)</div><div class="line"></div><div class="line">	sprite.set_flip_h(controller.facing_dir != <span class="number">1</span>)</div><div class="line"></div><div class="line">	var new_anim = <span class="string">"Idle"</span></div><div class="line">	<span class="keyword">if</span> controller.last_frame_grounded:</div><div class="line">		<span class="keyword">if</span> controller.velocity.x != <span class="number">0</span>:</div><div class="line">			new_anim = <span class="string">"Move"</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		new_anim = <span class="string">"Jump"</span></div><div class="line"></div><div class="line">	<span class="comment">#apply animation</span></div><div class="line">	<span class="keyword">if</span> new_anim != last_anim:</div><div class="line">		anim.play(new_anim)</div><div class="line">		last_anim = new_anim</div></pre></td></tr></table></figure>
+<p>Now, our player.gd only receive input and other stuff such animation. All movement calculation inside <code>onready var controller = get_node(&quot;Controller&quot;)</code>.</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/player.jpg" alt="Player" title="Player">
+<p>Also, don’t forget to change the camera.gd script.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">extends Camera2D</div><div class="line"></div><div class="line"></div><div class="line">export var target = <span class="string">"../Player"</span></div><div class="line">export var forward_offset = <span class="number">60</span></div><div class="line">export var max_y_offset = <span class="number">5</span></div><div class="line">export var x_smoothing = <span class="number">.05</span></div><div class="line">export var y_smoothing = <span class="number">.1</span></div><div class="line">onready var target_node = get_node(target)</div><div class="line">onready var bounds = get_node(<span class="string">"../Bounds"</span>)</div><div class="line"></div><div class="line">func _ready():</div><div class="line">	OS.set_window_size(OS.get_window_size() * <span class="number">4</span>)</div><div class="line">	set_limit(<span class="number">0</span>, bounds.get_left())</div><div class="line">	set_limit(<span class="number">1</span>, bounds.get_top())</div><div class="line">	set_limit(<span class="number">2</span>, bounds.get_right())</div><div class="line">	set_limit(<span class="number">3</span>, bounds.get_bottom())</div><div class="line"></div><div class="line">	var pos = target_node.get_pos()</div><div class="line">	pos = Vector2(round(pos.x), round(pos.y))</div><div class="line">	set_pos(pos)</div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line">func _fixed_process(delta):</div><div class="line">	var target_pos = target_node.controller.get_center_pos() + Vector2(<span class="number">1</span>, <span class="number">0</span>) * target_node.controller.facing_dir * forward_offset</div><div class="line">	target_pos.x = lerp(get_pos().x, target_pos.x, x_smoothing)</div><div class="line">	<span class="comment">#gap it when the next position is out of bound</span></div><div class="line">	<span class="keyword">if</span> abs(target_pos.x - target_node.controller.get_center_pos().x) &gt; forward_offset:</div><div class="line">		target_pos.x = target_node.controller.get_center_pos().x + target_node.controller.facing_dir * forward_offset * <span class="number">-1</span></div><div class="line">	target_pos.y = lerp(get_pos().y, target_pos.y + max_y_offset, y_smoothing)</div><div class="line">	<span class="keyword">if</span> abs(target_pos.y - target_node.controller.get_center_pos().y) &gt; max_y_offset:</div><div class="line">		target_pos.y =  target_node.controller.get_center_pos().y + (sign(target_pos.y - target_node.controller.get_center_pos().y) * max_y_offset)</div><div class="line"></div><div class="line">	set_pos(Vector2(round(target_pos.x), round(target_pos.y)))</div></pre></td></tr></table></figure>
+<p>Try it, make sure the game can run.</p>
+<div class="alert warning"><p><strong>IMPORTANT</strong> : I ended up changing my Player sprite <strong>Centered</strong> option into <strong>false</strong> and reposition the <strong>CollisionShape2D</strong>. This is not a big difference, I just want to make sure my game is at pixel perfect.</p>
+</div>
+<h2 id="Create-Enemy-Node"><a href="#Create-Enemy-Node" class="headerlink" title="Create Enemy Node"></a>Create Enemy Node</h2><p>Enemy is like player, the main node is <strong>KinematicBody2D</strong>. Create a <strong>KinematicBody2D</strong>, rename it into <strong>Slime</strong>, and create <strong>Sprite</strong>, <strong>CollisionShape2D</strong>, and <strong>Node</strong> inside <strong>Slime</strong>. After that what you need to do is</p>
+<ul>
+<li>Rename the <strong>Node</strong> to <strong>Controller</strong> and attach script <strong>character_controller.gd</strong>.</li>
+<li>Setup sprite as usually. Load the texture, set the Centered = false, VFrames = 20, HFrames = 22 and Frames = 6.</li>
+<li>setup the CollisionShape2D with RectangleShape2D, and set the size according to the sprite size.</li>
+</ul>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/slime.jpg" alt="Slime" title="Slime">
+<h3 id="Enemy-Script"><a href="#Enemy-Script" class="headerlink" title="Enemy Script"></a>Enemy Script</h3><p>Create a script and give it a name “enemy.gd”, attach it into <strong>Slime</strong>. Different with the player which is using user input for any action, enemy take all input from code. So, we need to make the behavior. For the first time, the behavior is quite simple, just walk and if detect wall, reverse the walk direction. The code will look like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">extends KinematicBody2D</div><div class="line"></div><div class="line">export var initial_movement = <span class="number">1</span></div><div class="line"></div><div class="line">var move_dir = <span class="number">0</span></div><div class="line"></div><div class="line">onready var controller = get_node(<span class="string">"Controller"</span>)</div><div class="line"></div><div class="line">func _ready():</div><div class="line">	move_dir = sign(initial_movement)</div><div class="line">	set_fixed_process(true)</div><div class="line"></div><div class="line">func _fixed_process(delta):</div><div class="line"></div><div class="line">	var remaining_movement = controller.move(move_dir == <span class="number">1</span>, move_dir == <span class="number">-1</span>, false, delta)</div><div class="line"></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		<span class="keyword">if</span> get_collision_normal() == Vector2(move_dir * <span class="number">-1</span>, <span class="number">0</span>):</div><div class="line">			move_dir *= <span class="number">-1</span></div><div class="line"></div><div class="line">	controller.collision_handling(remaining_movement)</div></pre></td></tr></table></figure>
+<p>Remember, there is no hole handling, so if the enemy walks into the hole, the enemy will falling down. So make the level properly, for example like this</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg" alt="Example Enemy Level" title="Example Enemy Level">
+<p>You can try to play it, the enemy will move left and right. Don’t forget to lower the <strong>Move Speed</strong> value, I’ve set it to 0.2.</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_moving.gif" alt="Moving Slime" title="Moving Slime">
+<h3 id="Enemy-Animation"><a href="#Enemy-Animation" class="headerlink" title="Enemy Animation"></a>Enemy Animation</h3><p>Create <strong>AnimationPlayer</strong> node inside <strong>Slime</strong> node and rename it to “anim”. Then create <strong>Idle</strong> and <strong>Move</strong> animation. I do not explain how to do this because the way we create animation is not different as before. After that, add this code into <strong>enemy.gd</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">var last_anim = <span class="string">""</span></div><div class="line">onready var anim = get_node(<span class="string">"anim"</span>)</div><div class="line">onready var sprite = get_node(<span class="string">"Sprite"</span>)</div><div class="line"><span class="comment">#other code</span></div><div class="line"></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	controller.collision_handling(remaining_movement)</div><div class="line"></div><div class="line">	sprite.set_flip_h(controller.facing_dir == <span class="number">1</span>)</div><div class="line"></div><div class="line">	var new_anim = <span class="string">"Idle"</span></div><div class="line">	<span class="keyword">if</span> controller.last_frame_grounded:</div><div class="line">		<span class="keyword">if</span> controller.velocity.x != <span class="number">0</span>:</div><div class="line">			new_anim = <span class="string">"Move"</span></div><div class="line"></div><div class="line">	<span class="comment">#apply animation</span></div><div class="line">	<span class="keyword">if</span> new_anim != last_anim:</div><div class="line">		anim.play(new_anim)</div><div class="line">		last_anim = new_anim</div></pre></td></tr></table></figure>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/enemy_animation.gif" alt="Slime Animation" title="Slime Animation">
+<h3 id="Hole-Detection"><a href="#Hole-Detection" class="headerlink" title="Hole Detection"></a>Hole Detection</h3><p>The behavior is not quite different with wall detection when a hole is in front of slime, then reverse the direction movement. However, this cannot be done without <strong>Raycast2D</strong>. There is 2 way to do raycast, directly from the script or create the node from editor and control from a script. I will do it directly from the script, it easier for me though. Open <strong>enemy.gd</strong> and add modify the code</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line"></div><div class="line">onready var hole_raycaster = RayCast2D.new()</div><div class="line">export var RAY_LENGTH = <span class="number">5</span></div><div class="line"></div><div class="line">func _ready():</div><div class="line">	move_dir = sign(initial_movement)</div><div class="line"></div><div class="line">	add_child(hole_raycaster)</div><div class="line">	hole_raycaster.add_exception(self)</div><div class="line">	hole_raycaster.set_pos(get_node(<span class="string">"CollisionShape2D"</span>).get_pos() + Vector2(<span class="number">1</span>, <span class="number">0</span>) * get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x)</div><div class="line">	hole_raycaster.set_cast_to(Vector2(<span class="number">0</span>, get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().y + RAY_LENGTH))</div><div class="line">	hole_raycaster.set_enabled(true)</div><div class="line"></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<div class="alert info"><p><strong>Raycast</strong> : Query the closest object intersecting a ray. Vector Ray can be set by calling <strong>set_cast_to(Vector2)</strong>. Don’t know how ray works? Imagine you have a laser, laser light will stop after reaching an object. Yes, a ray is like a laser.</p>
+</div>
+<p>Try to play it with Debug Visible Collision Shapes enabled, at the right side of Slime you will see arrow down indicating raycasting down.</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/example_enemy_level.jpg" alt="Example Enemy Level" title="Example Enemy Level">
+<p>When slime moving left, raycast still at the right side right? we need to change the raycast position whenever the slime is changing direction</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	controller.collision_handling(remaining_movement)</div><div class="line"></div><div class="line">	hole_raycaster.set_pos(get_node(<span class="string">"CollisionShape2D"</span>).get_pos() + Vector2(move_dir, <span class="number">0</span>) * get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x)</div><div class="line"></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p>You can test it now, the position of Raycast must be change when the slime direction is changing.</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_pos.gif" alt="Changin the Raycast Position" title="Changin the Raycast Position">
+<p>We haven’t code the hole detection yet. Modify again the enemy.gd</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#othercode</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	<span class="comment">#if no collider detected</span></div><div class="line">	<span class="keyword">if</span> !hole_raycaster.is_colliding():</div><div class="line">		move_dir *= <span class="number">-1</span></div><div class="line"></div><div class="line">	controller.collision_handling(remaining_movement)</div><div class="line"><span class="comment">#othercode</span></div></pre></td></tr></table></figure>
+<p>Now, modify our TileMap and test it.</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/raycast_hole.gif" alt="Raycasting Hole" title="Raycasting Hole">
+<p>It seems fine, but the problem will occur when slime reaches the level bounds. Slime will stay at the edge of level bounds.</p>
+
+<p>We have more job now..</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	<span class="comment">#if no collider detected</span></div><div class="line">	<span class="comment">#or if reach at the levelbound.right</span></div><div class="line">	<span class="comment">#or if reach at the levelbound.left</span></div><div class="line">	<span class="keyword">if</span> (!hole_raycaster.is_colliding()</div><div class="line">	<span class="keyword">or</span> (round(controller.get_center_pos().x + get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x) &gt;= round(get_node(<span class="string">"../Bounds"</span>).get_right()) <span class="keyword">and</span> move_dir == <span class="number">1</span>)</div><div class="line">	<span class="keyword">or</span> (round(controller.get_center_pos().x - get_node(<span class="string">"CollisionShape2D"</span>).get_shape().get_extents().x) &lt;= round(get_node(<span class="string">"../Bounds"</span>).get_left())  <span class="keyword">and</span> move_dir == <span class="number">-1</span>)):</div><div class="line">		move_dir *= <span class="number">-1</span></div></pre></td></tr></table></figure>
+<p>Test it and place the slime at the edge of level bounds</p>
+<img src="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/edge_lb.gif" alt="Raycasting Works Perfectly" title="Raycasting Works Perfectly">
+<p>This part ended here, next part will be the interaction between Player and Enemy.</p>
+<p><a href="https://github.com/damarindra/2D-Platformer-Godot" target="_blank" rel="external">Download Project Here</a></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a> <a class="tag tag--primary tag--small t-link" href="/tags/platformer/">platformer</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/" data-tooltip="Parallax Background and Level Bounds - Platformer Tutorial Part 6 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/" data-tooltip="Parallax Background and Level Bounds - Platformer Tutorial Part 6 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

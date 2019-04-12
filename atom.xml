@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://damarindra.com/"/>
-  <updated>2017-09-18T21:25:58.125Z</updated>
+  <updated>2019-04-12T08:34:51.753Z</updated>
   <id>http://damarindra.com/</id>
   
   <author>
@@ -16,11 +16,82 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Jitter Movement and How to Fix it?</title>
+    <link href="http://damarindra.com/2019/04/12/jitter-movement/"/>
+    <id>http://damarindra.com/2019/04/12/jitter-movement/</id>
+    <published>2019-04-12T08:28:25.000Z</published>
+    <updated>2019-04-12T08:34:51.753Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;What-is-Jitter-Movement&quot;&gt;&lt;a href=&quot;#What-is-Jitter-Movement&quot; class=&quot;headerlink&quot; title=&quot;What is Jitter Movement?&quot;&gt;&lt;/a&gt;What is Jitter M
+    
+    </summary>
+    
+    
+      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
+    
+      <category term="game" scheme="http://damarindra.com/tags/game/"/>
+    
+      <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>godot-1-8-ui</title>
+    <link href="http://damarindra.com/2017/09/21/godot-1-8-ui/"/>
+    <id>http://damarindra.com/2017/09/21/godot-1-8-ui/</id>
+    <published>2017-09-21T11:47:38.262Z</published>
+    <updated>2017-09-21T11:47:38.263Z</updated>
+    
+    <summary type="html">
+    
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/spoiler.css&quot; type=&quot;text/css&quot;&gt;&lt;script src=&quot;/js/spoiler.js&quot; type=&quot;text/javascript&quot; async&gt;&lt;/script&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>godot-1-7-interaction-between-player-and-enemy</title>
+    <link href="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/"/>
+    <id>http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/</id>
+    <published>2017-09-20T06:15:14.884Z</published>
+    <updated>2017-09-21T11:46:47.876Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;spoiler collapsed&quot;&gt;&lt;div class=&quot;spoiler-title&quot;&gt;Table of Content&lt;/div&gt;&lt;div class=&quot;spoiler-content&quot;&gt;&lt;!-- toc --&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is the eight part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will create interaction between player and enemy.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
+    
+      <category term="tutorial" scheme="http://damarindra.com/categories/godot/tutorial/"/>
+    
+      <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
+    
+    
+      <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
+    
+      <category term="game" scheme="http://damarindra.com/tags/game/"/>
+    
+      <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
+    
+      <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Character Controller and Enemy - Platformer Tutorial Part 7 - Godot</title>
     <link href="http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/"/>
     <id>http://damarindra.com/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/</id>
     <published>2017-09-18T21:09:19.000Z</published>
-    <updated>2017-09-18T21:25:58.125Z</updated>
+    <updated>2017-09-21T11:48:55.606Z</updated>
     
     <summary type="html">
     
@@ -36,13 +107,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -53,7 +124,7 @@
     <link href="http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/"/>
     <id>http://damarindra.com/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/</id>
     <published>2017-09-16T05:07:19.000Z</published>
-    <updated>2017-09-18T21:10:41.457Z</updated>
+    <updated>2017-09-21T11:49:10.200Z</updated>
     
     <summary type="html">
     
@@ -69,13 +140,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -86,7 +157,7 @@
     <link href="http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/"/>
     <id>http://damarindra.com/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/</id>
     <published>2017-09-12T10:09:45.000Z</published>
-    <updated>2017-09-18T21:11:10.614Z</updated>
+    <updated>2017-09-21T11:49:13.300Z</updated>
     
     <summary type="html">
     
@@ -102,13 +173,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -119,7 +190,7 @@
     <link href="http://damarindra.com/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/"/>
     <id>http://damarindra.com/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/</id>
     <published>2017-09-06T17:21:41.000Z</published>
-    <updated>2017-09-18T21:11:17.441Z</updated>
+    <updated>2017-09-21T11:49:15.217Z</updated>
     
     <summary type="html">
     
@@ -135,13 +206,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -152,7 +223,7 @@
     <link href="http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/"/>
     <id>http://damarindra.com/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/</id>
     <published>2017-09-02T12:31:16.000Z</published>
-    <updated>2017-09-18T21:11:19.767Z</updated>
+    <updated>2017-09-21T11:49:17.740Z</updated>
     
     <summary type="html">
     
@@ -168,13 +239,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -185,7 +256,7 @@
     <link href="http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/"/>
     <id>http://damarindra.com/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/</id>
     <published>2017-08-28T05:08:08.414Z</published>
-    <updated>2017-09-18T21:11:21.772Z</updated>
+    <updated>2017-09-21T11:49:19.939Z</updated>
     
     <summary type="html">
     
@@ -201,13 +272,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -218,7 +289,7 @@
     <link href="http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"/>
     <id>http://damarindra.com/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/</id>
     <published>2017-08-24T14:22:08.000Z</published>
-    <updated>2017-09-18T21:11:24.710Z</updated>
+    <updated>2017-09-21T11:49:25.549Z</updated>
     
     <summary type="html">
     
@@ -234,13 +305,13 @@
       <category term="tutorial_platformer" scheme="http://damarindra.com/categories/godot/tutorial/tutorial-platformer/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
       <category term="platformer" scheme="http://damarindra.com/tags/platformer/"/>
     
@@ -263,13 +334,13 @@
       <category term="godot" scheme="http://damarindra.com/categories/godot/"/>
     
     
-      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
-    
       <category term="gamedev" scheme="http://damarindra.com/tags/gamedev/"/>
     
       <category term="game" scheme="http://damarindra.com/tags/game/"/>
     
       <category term="development" scheme="http://damarindra.com/tags/development/"/>
+    
+      <category term="Godot" scheme="http://damarindra.com/tags/Godot/"/>
     
   </entry>
   

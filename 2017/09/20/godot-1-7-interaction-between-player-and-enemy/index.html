@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Damar Indra">
+    <title>godot-1-7-interaction-between-player-and-enemy - Damar Indra</title>
+    <meta name="author" content="Damar Indra">
+    
+    
+        <link rel="icon" href="http://damarindra.com/assets/images/avatar.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="This is the eight part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will create interaction between player and enemy.">
+<meta name="keywords" content="gamedev,game,development,Godot,platformer">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="godot-1-7-interaction-between-player-and-enemy">
+<meta property="og:url" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/index.html">
+<meta property="og:site_name" content="Damar Indra">
+<meta property="og:description" content="This is the eight part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will create interaction between player and enemy.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/layer_mask_enemy.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/player_collision_mask.jpg">
+<meta property="og:image" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/invisible.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/bounce.gif">
+<meta property="og:image" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/bounce_anim.gif">
+<meta property="og:updated_time" content="2017-09-21T11:46:47.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="godot-1-7-interaction-between-player-and-enemy">
+<meta name="twitter:description" content="This is the eight part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will create interaction between player and enemy.">
+<meta name="twitter:image" content="http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/layer_mask_enemy.jpg">
+<meta name="twitter:creator" content="@damarind">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-105267687-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Damar Indra</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=90" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Damar Indra</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>damarind@gmail.com</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/damarindra/" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://nirama-dama.deviantart.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-deviantart"></i>
+                        <span class="sidebar-button-desc">DeviantArt</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/damarind" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.facebook.com/damar.indera" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:damarind@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<!-- Want make Table of Content more good? activate this, but not working
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Finding-the-Enemy"><span class="toc-text">Finding the Enemy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Detecting-the-Enemy"><span class="toc-text">Detecting the Enemy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-Damage"><span class="toc-text">Taking Damage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invisible"><span class="toc-text">Invisible</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bounce"><span class="toc-text">Bounce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Take-Damage-Animation"><span class="toc-text">Take Damage Animation</span></a></li></ol></li></ol>
+  </div>
+
+
+-->
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            godot-1-7-interaction-between-player-and-enemy
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-09-20T13:15:14+07:00">
+	
+		    Sep 20, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/godot/">godot</a>, <a class="category-link" href="/categories/godot/tutorial/">tutorial</a>, <a class="category-link" href="/categories/godot/tutorial/tutorial-platformer/">tutorial_platformer</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Finding-the-Enemy"><span class="toc-text">Finding the Enemy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Detecting-the-Enemy"><span class="toc-text">Detecting the Enemy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Taking-Damage"><span class="toc-text">Taking Damage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Invisible"><span class="toc-text">Invisible</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bounce"><span class="toc-text">Bounce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Take-Damage-Animation"><span class="toc-text">Take Damage Animation</span></a></li></ol></li></ol></div></div>
+<p>This is the eight part of the tutorial creating platformer game on Godot Engine. In this tutorial, we will create interaction between player and enemy.<br><a id="more"></a></p>
+<ol>
+<li><a href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/" title="Part 1 : Preparation">Part 1 : Preparation</a></li>
+<li><a href="/2017/08/28/godot_platformer_tutorial/godot-1-1-player-creation/" title="Part 2 : Player Creation">Part 2 : Player Creation</a></li>
+<li><a href="/2017/09/02/godot_platformer_tutorial/godot-1-2-player-creation-2/" title="Part 3 : Player Creation 2">Part 3 : Player Creation 2</a></li>
+<li><a href="/2017/09/07/godot_platformer_tutorial/godot-1-3-tilemap-and-camera/" title="Part 4 : Tilemap and Camera">Part 4 : Tilemap and Camera</a></li>
+<li><a href="/2017/09/12/godot_platformer_tutorial/godot-1-4-player-creation-3/" title="Part 5 : Player Animation">Part 5 : Player Animation</a></li>
+<li><a href="/2017/09/16/godot_platformer_tutorial/godot-1-5-parallax-and-level-bounds/" title="Part 6 : Parallax Background and Level Bounds">Part 6 : Parallax Background and Level Bounds</a></li>
+<li><a href="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/" title="Part 7 : Character Controller and Enemy">Part 7 : Character Controller and Enemy</a></li>
+<li><strong>Part 8 : Interaction Between Player and Enemy</strong></li>
+</ol>
+<h2 id="Finding-the-Enemy"><a href="#Finding-the-Enemy" class="headerlink" title="Finding the Enemy"></a>Finding the Enemy</h2><p>First of all, we need the collision information of the player, whether the collision between enemy or the other. To know if the collision is between enemy, we can use layer mask as a sign that the collision is between enemy. Layer 1 will be a layer for the enemy node. Change the layer mask value of enemy into like this</p>
+<img src="/2017/09/20/godot-1-7-interaction-between-player-and-enemy/layer_mask_enemy.jpg" alt="Enemy Layer Mask" title="Enemy Layer Mask">
+<p>Next, change the collision mask value of player into like this</p>
+<img src="/2017/09/20/godot-1-7-interaction-between-player-and-enemy/player_collision_mask.jpg" alt="Player Collision Mask" title="Player Collision Mask">
+<div class="alert info"><p><strong>Layer Mask</strong> : Like a grouping system for Collision Node Type. You can edit from inspector by changing the <strong>Layers</strong> value.</p>
+<p><strong>Collision Mask</strong> : Which mask will interact with the node. You can edit from inspector by changing the <strong>Mask</strong> value.</p>
+<p><strong>How they work?</strong> You have 2 Node, Player and Enemy. Player Layer Mask = 1, and Enemy Layer Mask = 2. If Player Collision Mask number 2 is active, then Player can collide with Enemy, if number 2 non-active, Player can’t collide the Enemy. Got it? Between Layer and Collision Mask using bit system, for example</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- 0 active       = 1  = 0001</div><div class="line">- 1 active       = 2  = 0010</div><div class="line">- 0 and 1 active = 3  = 0011</div><div class="line">- 0, 2, 3 active = 13 = 1101</div></pre></td></tr></table></figure>
+</div>
+<h3 id="Detecting-the-Enemy"><a href="#Detecting-the-Enemy" class="headerlink" title="Detecting the Enemy"></a>Detecting the Enemy</h3><p>The enemy layer is in the 1 (starting index 0), now we just need to check the collision between player and enemy. Open <strong>player.gd</strong> and modify it</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	var remaining_movement = controller.move(right_input, left_input, jump_input, delta)</div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		<span class="comment">#check if collider is KinematicBody</span></div><div class="line">		<span class="keyword">if</span> get_collider().get_type() == <span class="string">"KinematicBody2D"</span>:</div><div class="line">			<span class="comment">#check if collider layer inside layer 1</span></div><div class="line">			<span class="keyword">if</span> get_collider().get_layer_mask_bit(<span class="number">1</span>):</div><div class="line">				<span class="comment">#then enemy detected</span></div><div class="line">				print(<span class="string">"Enemy"</span>)</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<p>If you run the scene and make a collision between player and enemy, the Output will print <strong>“Enemy”</strong>.</p>
+<h3 id="Taking-Damage"><a href="#Taking-Damage" class="headerlink" title="Taking Damage"></a>Taking Damage</h3><p>Talking about damage, we also need health right? Basically, character type node has health property, because of that, I will using <strong>character_controller.gd</strong> to put the <strong>health</strong> property. Open <strong>character_controller</strong> and add two new variable <code>export var MAX_HEALTH = 10</code> and <code>onready var current_health = MAX_HEALTH</code>. Then add a new function to taking damage</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func take_damage(value):</div><div class="line">	current_health -= value</div><div class="line">	<span class="keyword">if</span> current_health &lt; <span class="number">0</span>:</div><div class="line">		current_health = <span class="number">0</span></div></pre></td></tr></table></figure>
+<p>Next, open <strong>enemy.gd</strong> and add one variable <code>export var damage_given = 1</code>. Next open the <strong>player.gd</strong> and modify into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># path enemy script</span></div><div class="line">var enemy_script = preload(<span class="string">"res://enemy.gd"</span>)</div><div class="line"></div><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line">	<span class="keyword">if</span> is_colliding():</div><div class="line">		<span class="comment">#check if collider is KinematicBody</span></div><div class="line">		<span class="keyword">if</span> get_collider().get_type() == <span class="string">"KinematicBody2D"</span>:</div><div class="line">			<span class="comment">#check if collider layer inside layer 1</span></div><div class="line">			<span class="keyword">if</span> get_collider().get_layer_mask_bit(<span class="number">1</span>):</div><div class="line">				<span class="comment"># make sure if collider is enemy</span></div><div class="line">				<span class="keyword">if</span> get_collider() extends enemy_script:</div><div class="line">					take_damage(get_collider().damage_given)</div><div class="line"><span class="comment">#othercode</span></div></pre></td></tr></table></figure>
+<p>Try it and make a collision betwen enemy and see the Output console.</p>
+
+<p>If the result same as above, then your implementation is success!!</p>
+<h3 id="Invisible"><a href="#Invisible" class="headerlink" title="Invisible"></a>Invisible</h3><p>When a character taking damage, the character will become Invisible and take no damage during specific time. Most games indicate that a character is invisible is by flickering the sprite (renderer). Flickering can be achieve by shifting the alpha. Add 3 variables <code>export var INVISIBLE_TIME = 2.0</code>, <code>const flicker_step = 0.1</code>, <code>var invisible_time_done = 0.0</code>, <code>var is_invisible = false</code> and <code>onready var timer = Timer.new()</code> at <strong>character_controller.gd</strong>. <strong>INVISIBLE_TIME</strong> is for storing how long character will be at invisible state, <strong>flicker_step</strong> is time needed to toggle the alpha, <strong>timer</strong> is for counting the flickering and invisible time and <strong>invisible_time_done</strong> is for storing how long time has been done. Then, it seems we need to access the Sprite Node, and since we have it inside <strong>player.gd</strong> and <strong>slime.gd</strong>, delete the <code>onready var sprite = get_node(&quot;Sprite&quot;)</code> inside <strong>player.gd</strong> and <strong>slime.gd</strong>. Then add a new variable <code>onready var sprite = get_node(&quot;Sprite&quot;)</code> inside <strong>character_controller.gd</strong>. So far, what you need to add is</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">export var INVISIBLE_TIME = <span class="number">2.0</span></div><div class="line">const flicker_step = <span class="number">.1</span></div><div class="line">var invisible_time_done = <span class="number">0.0</span></div><div class="line">var is_invisible = false</div><div class="line">onready var timer = Timer.new()</div><div class="line">onready var sprite = get_node(<span class="string">"Sprite"</span>)</div></pre></td></tr></table></figure>
+<p>Next, create the logic flickering, the comment explain it all.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _ready():</div><div class="line">	<span class="comment">#othercode</span></div><div class="line">	create_timer()</div><div class="line"></div><div class="line"><span class="comment"># Creating timer</span></div><div class="line">func create_timer():</div><div class="line">	timer = Timer.new()</div><div class="line">	add_child(timer)</div><div class="line">	timer.set_timer_process_mode(Timer.TIMER_PROCESS_FIXED)</div><div class="line">	timer.set_one_shot(false)</div><div class="line">	timer.connect(<span class="string">"timeout"</span>, self, <span class="string">"_flickering"</span>)</div><div class="line"></div><div class="line"><span class="comment"># Flickering, only caled when timeout fired</span></div><div class="line">func _flickering():</div><div class="line">	<span class="keyword">if</span> invisible_time_done == INVISIBLE_TIME:</div><div class="line">		<span class="comment">#set the sprite alpha = 1</span></div><div class="line">		sprite.set_modulate(Color(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>))</div><div class="line">		<span class="comment"># reset invisible_time_done</span></div><div class="line">		invisible_time_done = <span class="number">0</span></div><div class="line">		<span class="comment"># now character can take damage again</span></div><div class="line">		is_invisible = false</div><div class="line">		<span class="comment"># stop the timer because flickering process done</span></div><div class="line">		timer.stop()</div><div class="line">	<span class="comment"># When invisible_time_done + flicker_step is more than INVISIBLE_TIME</span></div><div class="line">	<span class="keyword">elif</span> invisible_time_done + flicker_step &gt; INVISIBLE_TIME:</div><div class="line">		<span class="comment"># we need to calculate the time left, because time left is not equal than flicker time</span></div><div class="line">		var t = INVISIBLE_TIME - invisible_time_done</div><div class="line">		<span class="comment"># set this to catch the condition above (invisible_time_done == INVISIBLE_TIME)</span></div><div class="line">		invisible_time_done = INVISIBLE_TIME</div><div class="line">		<span class="comment"># stop the timer since the flicker_step not the right value</span></div><div class="line">		timer.stop()</div><div class="line">		<span class="comment"># re-start the flickering with proper time</span></div><div class="line">		start_flickering(t)</div><div class="line">		<span class="keyword">if</span> sprite.get_modulate().a == <span class="number">0</span>:</div><div class="line">			sprite.set_modulate(Color(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>))</div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			sprite.set_modulate(Color(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>))</div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		<span class="comment"># this region is for flickering, nothing special</span></div><div class="line">		<span class="keyword">if</span> sprite.get_modulate().a == <span class="number">0</span>:</div><div class="line">			sprite.set_modulate(Color(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>))</div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			sprite.set_modulate(Color(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>))</div><div class="line">		invisible_time_done += flicker_step</div><div class="line"></div><div class="line">func start_flickering(t):</div><div class="line">	timer.set_wait_time(t)</div><div class="line">	timer.start()</div><div class="line"></div><div class="line">func take_damage(value):</div><div class="line">	<span class="keyword">if</span> is_invisible:</div><div class="line">		<span class="keyword">return</span></div><div class="line"></div><div class="line">	current_health -= value</div><div class="line">	<span class="keyword">if</span> current_health &lt; <span class="number">0</span>:</div><div class="line">		current_health = <span class="number">0</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		is_invisible = true</div><div class="line">		start_flickering(flicker_step)</div><div class="line"><span class="comment">#othercode</span></div></pre></td></tr></table></figure>
+<p>Try it and make a collision to slime.</p>
+<img src="/2017/09/20/godot-1-7-interaction-between-player-and-enemy/invisible.gif" alt="Invisible" title="Invisible">
+<h3 id="Bounce"><a href="#Bounce" class="headerlink" title="Bounce"></a>Bounce</h3><p>The next section we will make it bounce back while taking damage. While bouncing back, the character can’t be controlled for a while. So let’s do this, modify the <strong>character_controller.gd</strong> code into like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line"></div><div class="line"><span class="comment"># store if is bouncing</span></div><div class="line">var is_bouncing = false</div><div class="line"><span class="comment"># bouncing direction, x will be automatically change depending on the damage factor and this character</span></div><div class="line">export var bounce_dir = Vector2(<span class="number">3</span>, <span class="number">-5</span>)</div><div class="line"><span class="comment"># can't control character while taking damage</span></div><div class="line">export(float, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">.01</span>) var uncontrolable_invisible = <span class="number">0.5</span></div><div class="line"></div><div class="line"><span class="comment">#other code</span></div><div class="line"></div><div class="line">func _flickering():</div><div class="line">	<span class="keyword">if</span> invisible_time_done &gt; INVISIBLE_TIME * uncontrolable_invisible <span class="keyword">and</span> is_bouncing:</div><div class="line">		is_bouncing = false</div><div class="line">	<span class="comment">#other code</span></div><div class="line"></div><div class="line">func calculate_movement(right_input, left_input, jump_input, delta):</div><div class="line">	<span class="comment"># make a Vector2 variable movement and add gravity into y axis</span></div><div class="line">	var movement = Vector2(velocity.x, velocity.y + GRAVITY * delta)</div><div class="line">	<span class="comment">#Apply the horizontal movement</span></div><div class="line">	<span class="keyword">if</span> right_input <span class="keyword">and</span> !is_bouncing:</div><div class="line">		movement.x += move_step * delta</div><div class="line">	<span class="keyword">elif</span> left_input <span class="keyword">and</span> !is_bouncing:</div><div class="line">		movement.x -= move_step * delta</div><div class="line">	<span class="comment">#other code</span></div><div class="line"></div><div class="line">func collision_handling(remaining_movement):</div><div class="line">	<span class="keyword">if</span> is_bouncing:</div><div class="line">		<span class="keyword">return</span></div><div class="line">	<span class="comment">#other code</span></div><div class="line"></div><div class="line">func take_damage(value):</div><div class="line">	<span class="keyword">if</span> is_invisible:</div><div class="line">		<span class="keyword">return</span></div><div class="line"></div><div class="line">	current_health -= value</div><div class="line">	<span class="keyword">if</span> current_health &lt; <span class="number">0</span>:</div><div class="line">		current_health = <span class="number">0</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		is_bouncing = true</div><div class="line">		var dir = sign(get_center_pos().x - get_collider().get_center_pos().x)</div><div class="line">		velocity = bounce_dir * Vector2(dir, <span class="number">1</span>)</div><div class="line">		is_invisible = true</div><div class="line">		start_flickering(flicker_step)</div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<img src="/2017/09/20/godot-1-7-interaction-between-player-and-enemy/bounce.gif" alt="Bounce" title="Bounce">
+<h3 id="Take-Damage-Animation"><a href="#Take-Damage-Animation" class="headerlink" title="Take Damage Animation"></a>Take Damage Animation</h3><p>Open the <strong>player.tscn</strong> and make a new <strong>GetDamage</strong> Animation Clip. Again, I’m will not explaining process creating animation clip, not different as the previous part. After you’ve done creating animation, now modify <strong>player.gd</strong> script</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#other code</span></div><div class="line">func _fixed_process(delta):</div><div class="line">	<span class="comment">#other code</span></div><div class="line"></div><div class="line">	var new_anim = <span class="string">"Idle"</span></div><div class="line">	<span class="keyword">if</span> is_bouncing:</div><div class="line">		new_anim = <span class="string">"GetDamage"</span></div><div class="line">	<span class="keyword">elif</span> last_frame_grounded:</div><div class="line">		<span class="keyword">if</span> velocity.x != <span class="number">0</span>:</div><div class="line">			new_anim = <span class="string">"Move"</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		new_anim = <span class="string">"Jump"</span></div><div class="line"></div><div class="line"><span class="comment">#other code</span></div></pre></td></tr></table></figure>
+<img src="/2017/09/20/godot-1-7-interaction-between-player-and-enemy/bounce_anim.gif" alt="Bounce with Animation" title="Bounce with Animation">
+<p>This part ended here, next part we will creating the UI to showing player health.</p>
+<p><a href="https://github.com/damarindra/2D-Platformer-Godot" target="_blank" rel="external">Download Project Here</a></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a> <a class="tag tag--primary tag--small t-link" href="/tags/platformer/">platformer</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/" data-tooltip="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/21/godot-1-8-ui/"  data-tooltip="godot-1-8-ui">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 Damar Indra. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+		<li class="post-action">
+		    
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/19/godot_platformer_tutorial/godot-1-6-character-controller-and-enemy/" data-tooltip="Character Controller and Enemy - Platformer Tutorial Part 7 - Godot">
+		    
+			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+			<i class="fa fa-angle-left"></i>
+		    </a>
+		</li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/21/godot-1-8-ui/"  data-tooltip="godot-1-8-ui">
+                
+                    <i class="fa fa-angle-right"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/09/20/godot-1-7-interaction-between-player-and-enemy/">
+                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/dfe6ee574d2885e5aa8a3565180d9647?s=110" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Damar Indra</h4>
+        
+            <div id="about-card-bio"><p>damarind@gmail.com</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer, Programmer, Artist</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Indonesia
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div id= "list-search" class="results">
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.gif');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

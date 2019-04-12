@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Damar Indra">
-    <title>Why Godot? - Damar Indra</title>
+    <title>Jitter Movement and How to Fix it? - Damar Indra</title>
     <meta name="author" content="Damar Indra">
     
     
@@ -15,18 +15,18 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="How I met with Godot?I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Sou">
-<meta name="keywords" content="gamedev,game,development,Godot">
+    <meta name="description" content="What is Jitter Movement?When your camera and object movement is not sync each other, the movement you see will be stop, move, stop, in fast speed. It’s hard to explain, but I’m sure if you have this p">
+<meta name="keywords" content="gamedev,game,development">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Why Godot?">
-<meta property="og:url" content="http://damarindra.com/2017/08/23/godot_why_i_choose_godot/index.html">
+<meta property="og:title" content="Jitter Movement and How to Fix it?">
+<meta property="og:url" content="http://damarindra.com/2019/04/12/jitter-movement/index.html">
 <meta property="og:site_name" content="Damar Indra">
-<meta property="og:description" content="How I met with Godot?I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Sou">
+<meta property="og:description" content="What is Jitter Movement?When your camera and object movement is not sync each other, the movement you see will be stop, move, stop, in fast speed. It’s hard to explain, but I’m sure if you have this p">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-02T12:32:47.593Z">
+<meta property="og:updated_time" content="2019-04-12T08:34:51.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Why Godot?">
-<meta name="twitter:description" content="How I met with Godot?I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Sou">
+<meta name="twitter:title" content="Jitter Movement and How to Fix it?">
+<meta name="twitter:description" content="What is Jitter Movement?When your camera and object movement is not sync each other, the movement you see will be stop, move, stop, in fast speed. It’s hard to explain, but I’m sure if you have this p">
 <meta name="twitter:creator" content="@damarind">
     
     
@@ -259,7 +259,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#How-I-met-with-Godot"><span class="toc-text">How I met with Godot?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-I’m-back-using-Godot"><span class="toc-text">Why I’m back using Godot?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-do-you-think-about-Unity-vs-Godot"><span class="toc-text">What do you think about Unity vs Godot?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SUPPORT-GODOT"><span class="toc-text">SUPPORT GODOT</span></a>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-Jitter-Movement"><span class="toc-text">What is Jitter Movement?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-to-fix-it"><span class="toc-text">How to fix it?</span></a></li></ol>
   </div>
 
 
@@ -270,22 +270,16 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Why Godot?
+            Jitter Movement and How to Fix it?
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2017-08-23T07:56:19+07:00">
+    <time itemprop="datePublished" datetime="2019-04-12T15:28:25+07:00">
 	
-		    Aug 23, 2017
+		    Apr 12, 2019
     	
     </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/godot/">godot</a>
-
-
     
 </div>
 
@@ -294,13 +288,11 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <div class="spoiler collapsed"><div class="spoiler-title">Table of Content</div><div class="spoiler-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#How-I-met-with-Godot"><span class="toc-text">How I met with Godot?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-I’m-back-using-Godot"><span class="toc-text">Why I’m back using Godot?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-do-you-think-about-Unity-vs-Godot"><span class="toc-text">What do you think about Unity vs Godot?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SUPPORT-GODOT"><span class="toc-text">SUPPORT GODOT</span></a></div></div>
-<h2 id="How-I-met-with-Godot"><a href="#How-I-met-with-Godot" class="headerlink" title="How I met with Godot?"></a>How I met with Godot?</h2><p>I do not really remember when it is, maybe January 2015 that was my first time I’ve found Godot. At that time, I’ve been joined open source community named Doscom (Dinus Open Source Community) and Doscom held a workshop about game development. So I’m the one who focussed on game development has a job to teaching.<br><a id="more"></a> Because the community is open source, I need to find the open source game engine, and finally, I found out Godot. Why I chose Godot? I’m used to developing a game with Unity3D, and Godot is the similar one. Okay I will not explain more about the past, anyway you can check it <a href="https://doscom.org/blog/workshop-pembuatan-game-space-radian-dengan-godot-engine/" target="_blank" rel="external">here</a> about the event.</p>
-<h2 id="Why-I’m-back-using-Godot"><a href="#Why-I’m-back-using-Godot" class="headerlink" title="Why I’m back using Godot?"></a>Why I’m back using Godot?</h2><p>Mid 2017, I’ve decided to use Godot again, why? Without open source (Doscom), I don’t know about Game Dev. So I want to give a feedback, the only way is using godot and share what I’ve learned. I will post blogs here, and maybe videos on youtube.</p>
-<h2 id="What-do-you-think-about-Unity-vs-Godot"><a href="#What-do-you-think-about-Unity-vs-Godot" class="headerlink" title="What do you think about Unity vs Godot?"></a>What do you think about Unity vs Godot?</h2><p>Okay, mostly I’ve been developing 2D games. After I try to using Godot again, I’ve been really surprised, Godot really easy when developing 2D games, for example, the KinematicBody2D has a move function. Move function calculates and detects a collision. As far as I know, Unity doesn’t has this function, only the CharacterController on 3D has the move function. Godot also has a tilemap node, which Unity doesn’t (planned September 2017 ??). So for me, this is really helpful!! TFW, KinematicBody can get the floor (collider) velocity!! Godot, you stole my heart!!</p>
-<p>If you want to know godot more, you can search it in google, there is so many article about godot. I will recommend this one <a href="http://www.gamefromscratch.com/post/2015/01/04/A-Closer-Look-at-the-Godot-Game-Engine.aspx" target="_blank" rel="external">GameFromScratch</a></p>
-<h1 id="SUPPORT-GODOT"><a href="#SUPPORT-GODOT" class="headerlink" title="SUPPORT GODOT"></a>SUPPORT GODOT</h1><p>Don’t forget to support godot to make it good and more good!! If you can donate, you can support it via <a href="https://www.patreon.com/godotengine/posts" target="_blank" rel="external">Patreon</a>, or just one time donation via <a href="https://godotengine.org/donate" target="_blank" rel="external">Paypal</a>. Don’t worry if you can’t donate, you can support godot by using Godot for now, spread the words!!!</p>
-<p>.</p>
+            <h2 id="What-is-Jitter-Movement"><a href="#What-is-Jitter-Movement" class="headerlink" title="What is Jitter Movement?"></a>What is Jitter Movement?</h2><p>When your camera and object movement is not sync each other, the movement you see will be stop, move, stop, in fast speed. It’s hard to explain, but I’m sure if you have this problem, you will now if that was jittering!</p>
+<h2 id="How-to-fix-it"><a href="#How-to-fix-it" class="headerlink" title="How to fix it?"></a>How to fix it?</h2><p>It’s quite simple! You need to call camera update position right after player movement.</p>
+<p>For example if you are using Unity, your character movement is on <strong>Update</strong> function, you can call your camera update position function on the <strong>LateUpdate</strong> function. But, if you are using <strong>FixedUpdate</strong> for the character movement, you need to call the camera movement right after your character moved, which is inside the <strong>FixedUpdate</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">char.cs</div><div class="line"></div><div class="line">Camera cam;</div><div class="line">void FixedUpdate()&#123;</div><div class="line">	YouNeedToMove();</div><div class="line">	cam.UpdateMovement();</div><div class="line">&#125;</div><div class="line"></div><div class="line">cam.cs</div><div class="line">public void UpdateMovement()&#123;</div><div class="line">	DoWhateverYouWant_Cam();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Yep, that was the illustration.</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
             
         </div>
@@ -310,7 +302,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Godot/">Godot</a> <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/development/">development</a> <a class="tag tag--primary tag--small t-link" href="/tags/game/">game</a> <a class="tag tag--primary tag--small t-link" href="/tags/gamedev/">gamedev</a>
 
             </div>
         
@@ -320,7 +312,7 @@
         <ul class="post-actions post-action-nav">
 		<li class="post-action">
 		    
-			<a class="post-action-btn btn btn--disabled">
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/21/godot-1-8-ui/" data-tooltip="godot-1-8-ui">
 		    
 			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
 			<i class="fa fa-angle-left"></i>
@@ -328,7 +320,7 @@
 		</li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"  data-tooltip="Preparation - Platformer Tutorial Part 1 - Godot">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-right"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -346,7 +338,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -354,7 +346,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -362,7 +354,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -370,7 +362,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+                <a class="post-action-btn btn btn--default" href="#">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -400,7 +392,7 @@
         <ul class="post-actions post-action-nav">
 		<li class="post-action">
 		    
-			<a class="post-action-btn btn btn--disabled">
+			<a class="post-action-btn btn btn--default tooltip--top" href="/2017/09/21/godot-1-8-ui/" data-tooltip="godot-1-8-ui">
 		    
 			<span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
 			<i class="fa fa-angle-left"></i>
@@ -408,7 +400,7 @@
 		</li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/24/godot_platformer_tutorial/godot-1-0-preparation/"  data-tooltip="Preparation - Platformer Tutorial Part 1 - Godot">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-right"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -426,7 +418,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -434,7 +426,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -442,7 +434,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -450,7 +442,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+                <a class="post-action-btn btn btn--default" href="#">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -466,7 +458,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -474,7 +466,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-twitter"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -482,7 +474,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2017/08/23/godot_why_i_choose_godot/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://damarindra.com/2019/04/12/jitter-movement/">
                     <i class="fa fa-google-plus"></i><span>Share on Google+</span>
                 </a>
             </li>

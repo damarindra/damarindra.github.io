@@ -1,0 +1,44 @@
+site_name: Unreal Stuffs
+site_url: https://damarindra.github.io/unreal
+theme:
+  name: material
+  font:
+    text: Jost
+    code: JetBrains Mono
+  features:
+    - navigation.indexes
+    - toc.integrate 
+    - content.tabs.link
+  palette: 
+    # Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      use_pygments: true
+  - admonition
+
+plugins:
+  - search
+  - blog:
+      blog_dir: .
+  - meta
+  - blueprintue

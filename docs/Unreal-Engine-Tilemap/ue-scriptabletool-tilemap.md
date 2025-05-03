@@ -7,7 +7,7 @@ date:
 
 I was super excited when Scriptable Tools were introduced in the Unreal Engine 5. Back then, I was thinking "This can be used to create a Tilemap in 3D". I started working on it, but there weren't many resources that I can follow at that time.
 
-In 2025, Unreal Engine youtube channel release a video introducing [Geometry Scripting and Scriptable Tools](https://www.youtube.com/watch?v=gNKVGbwfX4c), though when I watched it, there is no mention on Geometry Scripting :laughing:. But, the Scriptable Tool have a lot of new feature as I'm aware, and the blocker that I have before, now it can be solved! They've added awesome debugging tools like LineSet and TriangleSet! At the end of the video, they showcasing that the dungeon actually created with the help of the custom Scriptable Tools. But bummer - they didn't show how they built it :(.
+In 2025, Unreal Engine youtube channel release a video introducing [Geometry Scripting and Scriptable Tools](https://www.youtube.com/watch?v=gNKVGbwfX4c), though when I watched it, there is no mention on Geometry Scripting :laughing:. But, the Scriptable Tool have a lot of new feature as I'm aware, and the blocker that I have before, now it can be solved! They've added awesome debugging tools like LineSet and TriangleSet! At the end of the video, they showcasing that the dungeon actually created with the help of the custom Scriptable Tools. But bummer - they didn't show how they built it :rolling_eyes:.
 
 So here we go, I've been working to create Tilemap Draw Tool similar to the showcase in the video and this is the result
 
@@ -19,17 +19,17 @@ Before go into deep, I suggest you guys to [watch the video](https://www.youtube
 
 ### Create Settings class to store the configuration
 
-Create a new C++ class, let's call it `UEditorTilemapPropertySet` to store the configuration.
+Create a new C++ class, let's call it `UDemoTilemapPropertySet` to store the configuration.
 
 ```cpp
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EditorScriptableInteractiveTool.h"
-#include "EditorTilemapPropertySet.generated.h"
+#include "ScriptableInteractiveTool.h"
+#include "TilemapPropertySet.generated.h"
 
 UCLASS()
-class DEMOEDITORTOOL_API UEditorTilemapPropertySet : public UEditorScriptableInteractiveToolPropertySet
+class DEMOEDITORTOOL_API UDemoTilemapPropertySet : public UScriptableInteractiveToolPropertySet
 {
 	GENERATED_BODY()
 
@@ -43,7 +43,7 @@ public:
 
 ### Create the Scriptable Tool class
 
-Scriptable Tool have 2 type, Editor and non-Editor. For this article, we will use the Editor one. Create a new class, let's call it `UEditorTilemapTool`
+Let's create a new class, let's call it `UDemoTilemapTool`. This will be our new Scriptable Tool.
 
 === "Header"
 
@@ -51,22 +51,22 @@ Scriptable Tool have 2 type, Editor and non-Editor. For this article, we will us
 	#pragma once
 
 	#include "CoreMinimal.h"
-	#include "BaseTools/EditorScriptableModularBehaviorTool.h"
-	#include "EditorTilemapTool.generated.h"
+	#include "BaseTools/ScriptableModularBehaviorTool.h"
+	#include "DemoTilemapTool.generated.h"
 
 	UCLASS(Transient, Blueprintable)
-	class DEMOEDITORTOOL_API UEditorTilemapTool : public UEditorScriptableModularBehaviorTool
+	class DEMOEDITORTOOL_API UDemoTilemapTool : public UScriptableModularBehaviorTool
 	{
 		GENERATED_BODY()
 	public:
-		UEditorTilemapTool();
+		UDemoTilemapTool();
 	}
 	```
 
 === "Source"
 
 	```cpp
-	UEditorTilemapTool::UEditorTilemapTool()
+	UDemoTilemapTool::UDemoTilemapTool()
 	{
 		// Setting up the tool information
 		ToolName = FText::FromString(TEXT("Tilemap"));
@@ -81,20 +81,20 @@ Basically, you've already create a new Custom Scriptable Tool called Tilemap, to
 
 ### Register Settings
 
-We will utilize the `UEditorTilemapPropertySet` Settings that we've already created. This will shown in the Scriptable Tool section.
+We will utilize the `UDemoTilemapPropertySet` Settings that we've already created. This will shown in the Scriptable Tool section.
 
 === "Header"
 
 	```cpp hl_lines="6-13"
-	class DEMOEDITORTOOL_API USvtEditorTilemapTool : public UEditorScriptableModularBehaviorTool
+	class DEMOEDITORTOOL_API UDemoTilemapTool : public UScriptableModularBehaviorTool
 	{
 	public:
-		UEditorTilemapTool();
+		UDemoTilemapTool();
 
 		virtual void Setup() override;
 
 		UPROPERTY()
-		class UEditorTilemapPropertySet* Settings;
+		class UDemoTilemapPropertySet* Settings;
 
 	protected:
 		UFUNCTION()
@@ -104,12 +104,12 @@ We will utilize the `UEditorTilemapPropertySet` Settings that we've already crea
 === "Source"
 
 	```cpp
-	#include "EditorTilemapPropertySet.h"
+	#include "DemoTilemapPropertySet.h"
 
-	void UEditorTilemapTool::Setup()
+	void UDemoTilemapTool::Setup()
 	{
 		EToolsFrameworkOutcomePins OutResult;
-		Settings = Cast<UEditorTilemapPropertySet>(AddPropertySetOfType(UEditorTilemapPropertySet::StaticClass(), TEXT("Settings"), OutResult));
+		Settings = Cast<UDemoTilemapPropertySet>(AddPropertySetOfType(UDemoTilemapPropertySet::StaticClass(), TEXT("Settings"), OutResult));
 
 		if (OutResult == EToolsFrameworkOutcomePins::Failure)
 		{
@@ -119,16 +119,16 @@ We will utilize the `UEditorTilemapPropertySet` Settings that we've already crea
 		RestorePropertySetSettings(Settings, TEXT("TilemapSettings"));
 
 		FToolPropertyModifiedDelegate PropertyChangedDelegate;
-		PropertyChangedDelegate.BindDynamic(this, &UEditorTilemapTool::HandlePropertyModified);
+		PropertyChangedDelegate.BindDynamic(this, &UDemoTilemapTool::HandlePropertyModified);
 
 		WatchProperty(Settings, TEXT("TileSize"), PropertyChangedDelegate);
 		WatchProperty(Settings, TEXT("MapSize"), PropertyChangedDelegate);
 		WatchProperty(Settings, TEXT("TilemapDebugMaterial"), PropertyChangedDelegate);
 	}
 
-	void UEditorTilemapTool::HandlePropertyModified(UScriptableInteractiveToolPropertySet* PropertySet, FString PropertyName)
+	void UDemoTilemapTool::HandlePropertyModified(UScriptableInteractiveToolPropertySet* PropertySet, FString PropertyName)
 	{
-		UEditorTilemapPropertySet* SettingProp = Cast<UEditorTilemapPropertySet>(PropertySet);
+		UDemoTilemapPropertySet* SettingProp = Cast<UDemoTilemapPropertySet>(PropertySet);
 
 		if (SettingProp == nullptr)
 		{
@@ -150,12 +150,12 @@ Let's breakdown the code above.
 
 ### Draw Grid
 
-We will utilize the `UEditorTilemapTool::Render` to draw the grid. This function offer basic render such as line draw.
+We will utilize the `UDemoTilemapTool::Render` to draw the grid. This function offer basic render such as line draw.
 
 === "Header"
 
 	```cpp hl_lines="6"
-	class DEMOEDITORTOOL_API USvtEditorTilemapTool : public UEditorScriptableModularBehaviorTool
+	class DEMOEDITORTOOL_API UDemoTilemapTool : public UScriptableModularBehaviorTool
 	{
 	public:
 		...
@@ -169,7 +169,7 @@ We will utilize the `UEditorTilemapTool::Render` to draw the grid. This function
 	```cpp
 	#include "ToolDataVisualizer.h"
 
-	void UEditorTilemapTool::Render(IToolsContextRenderAPI* RenderAPI)
+	void UDemoTilemapTool::Render(IToolsContextRenderAPI* RenderAPI)
 	{
 		FToolDataVisualizer Renderer;
 		Renderer.BeginFrame(RenderAPI);
@@ -212,13 +212,13 @@ There is multiple interaction you can do with the Editor Behaviour Tool, for til
 === "Source"
 
 	```cpp hl_lines="6-46"
-	void UEditorTilemapTool::Setup()
+	void UDemoTilemapTool::Setup()
 	{
 		...
 		WatchProperty(Settings, TEXT("TilemapDebugMaterial"), PropertyChangedDelegate);
 
 		FTestCanBeginClickDragSequenceDelegate BeginClickDragSequenceDelegate;
-		BeginClickDragSequenceDelegate.BindDynamic(this, &UEditorTilemapTool::HandleBeginClickDragSequence);
+		BeginClickDragSequenceDelegate.BindDynamic(this, &UDemoTilemapTool::HandleBeginClickDragSequence);
 		
 		AddClickDragBehavior(
 			BeginClickDragSequenceDelegate,
@@ -229,7 +229,7 @@ There is multiple interaction you can do with the Editor Behaviour Tool, for til
 			FMouseBehaviorModiferCheckDelegate());
 	}
 
-	FVector UEditorTilemapTool::CalculateIntersection(const FVector& Origin, const FVector& Direction, int32 ZFloor)
+	FVector UDemoTilemapTool::CalculateIntersection(const FVector& Origin, const FVector& Direction, int32 ZFloor)
 	{
 		FVector Intersection = FVector::Zero();
 		
@@ -247,7 +247,7 @@ There is multiple interaction you can do with the Editor Behaviour Tool, for til
 		return Intersection;
 	}
 
-	FInputRayHit UEditorTilemapTool::HandleBeginClickDragSequence(FInputDeviceRay PressPos,
+	FInputRayHit UDemoTilemapTool::HandleBeginClickDragSequence(FInputDeviceRay PressPos,
 		FScriptableToolModifierStates Modifiers, EScriptableToolMouseButton MouseButton)
 	{
 		if (MouseButton != EScriptableToolMouseButton::LeftButton)
@@ -263,7 +263,7 @@ There is multiple interaction you can do with the Editor Behaviour Tool, for til
 Here's the deal with this code...
 
 1. In the `Setup()` function, we add `AddClickDragBehavior` call to register the mouse input.
-2. We also register a delegate and it will call `UEditorTilemapTool::HandleBeginClickDragSequence`. This function will determine if the input is valid or not by returning `FInputHitRay`.
+2. We also register a delegate and it will call `UDemoTilemapTool::HandleBeginClickDragSequence`. This function will determine if the input is valid or not by returning `FInputHitRay`.
 3. We add a new function called `CalculateIntersection` to calculate the intersection coordinate from the mouse ray to `ZFloor == 0`.
 
 Now, we have the intersection coordinate, we need to handle the `FOnClickPressDelegate, FOnClickDragDelegate`.
@@ -280,15 +280,15 @@ Now, we have the intersection coordinate, we need to handle the `FOnClickPressDe
 === "Source"
 
 	```cpp hl_lines="5-9 13-14 20-42"
-	void UEditorTilemapTool::Setup()
+	void UDemoTilemapTool::Setup()
 	{
-		BeginClickDragSequenceDelegate.BindDynamic(this, &UEditorTilemapTool::HandleBeginClickDragSequence);
+		BeginClickDragSequenceDelegate.BindDynamic(this, &UDemoTilemapTool::HandleBeginClickDragSequence);
 		
 		FOnClickPressDelegate OnClickPressDelegate;
-		OnClickPressDelegate.BindDynamic(this, &UEditorTilemapTool::HandleClick);
+		OnClickPressDelegate.BindDynamic(this, &UDemoTilemapTool::HandleClick);
 
 		FOnClickDragDelegate OnClickDragDelegate;
-		OnClickDragDelegate.BindDynamic(this, &UEditorTilemapTool::HandleClick);
+		OnClickDragDelegate.BindDynamic(this, &UDemoTilemapTool::HandleClick);
 			
 		AddClickDragBehavior(
 			BeginClickDragSequenceDelegate,
@@ -299,7 +299,7 @@ Now, we have the intersection coordinate, we need to handle the `FOnClickPressDe
 			FMouseBehaviorModiferCheckDelegate());
 	}
 
-	void UEditorTilemapTool::HandleClick(FInputDeviceRay MousePos, FScriptableToolModifierStates Modifiers,
+	void UDemoTilemapTool::HandleClick(FInputDeviceRay MousePos, FScriptableToolModifierStates Modifiers,
 		EScriptableToolMouseButton MouseButton)
 	{
 		if (MouseButton != EScriptableToolMouseButton::LeftButton)
@@ -326,8 +326,8 @@ Now, we have the intersection coordinate, we need to handle the `FOnClickPressDe
 
 What this basically does is...
 
-1. In `Setup` function, we add another delegate and it will call `UEditorTilemapTool::HandleClick` when user start press mouse left button and dragging it.
-2. `UEditorTilemapTool::HandleClick` will calculate the intersection coordinate, and for testing, we will print out the coordinate to the Output Log.
+1. In `Setup` function, we add another delegate and it will call `UDemoTilemapTool::HandleClick` when user start press mouse left button and dragging it.
+2. `UDemoTilemapTool::HandleClick` will calculate the intersection coordinate, and for testing, we will print out the coordinate to the Output Log.
 
 Let see if our tools is working as expected, activate the Tilemap Demo tool and open the output log.
 
@@ -369,7 +369,7 @@ Now, that we are able interacting with the Level Editor, one thing that left is 
 	#include "Drawing/ScriptableToolTriangle.h"
 	#include "Drawing/ScriptableToolTriangleSet.h"
 
-	void UEditorTilemapTool::Setup()
+	void UDemoTilemapTool::Setup()
 	{
 		...
 		WatchProperty(Settings, TEXT("TilemapDebugMaterial"), PropertyChangedDelegate);
@@ -377,7 +377,7 @@ Now, that we are able interacting with the Level Editor, one thing that left is 
 		...
 	}
 
-	void UEditorTilemapTool::HandleClick(FInputDeviceRay MousePos, FScriptableToolModifierStates Modifiers,
+	void UDemoTilemapTool::HandleClick(FInputDeviceRay MousePos, FScriptableToolModifierStates Modifiers,
 		EScriptableToolMouseButton MouseButton)
 	{
 		...
@@ -396,7 +396,7 @@ Now, that we are able interacting with the Level Editor, one thing that left is 
 		}
 	}
 	
-	void UEditorTilemapTool::DrawTile(const FIntVector& Coord)
+	void UDemoTilemapTool::DrawTile(const FIntVector& Coord)
 	{
 		if (Quads.Contains(Coord))
 		{
@@ -417,7 +417,7 @@ Now, that we are able interacting with the Level Editor, one thing that left is 
 
 !!! warning "Caching Active Tiles"
 
-	Heads up! In this article, we only cache the active tiles in the `UEditorTilemapTool`. This is not real world use case!
+	Heads up! In this article, we only cache the active tiles in the `UDemoTilemapTool`. This is not real world use case!
 	In a real project, you should save the active tiles into an Actor, UObject, or maybe DataAsset!
 
 	The TempActiveTiles will be cleanup after pressing complete button.
@@ -427,7 +427,7 @@ Here's what's happening here:
 
 1. We create a new variable call `TempActiveTiles`, this will store the active tiles. Since we save this to the Tool class, it will clean up right after the you've done using the tool.
 2. We add `UScriptableToolTriangleSet* TriangleSet`, this have responsibilities to store the Quad that we've drawn.
-3. In the `UEditorTilemapTool::HandleClick`, we need to be carefull to always check the `TempActiveTiles`, if it contains the `Coord`, we should ignore it to prevent double quad at the same coordinate.
+3. In the `UDemoTilemapTool::HandleClick`, we need to be carefull to always check the `TempActiveTiles`, if it contains the `Coord`, we should ignore it to prevent double quad at the same coordinate.
 	
 ![Tilemap Tool Test](ue-scriptabletool-tilemap/tilemap-test-draw.gif)
 
@@ -438,7 +438,7 @@ Pretty neat, right?
 Now we can add active tiles and draw the quad, but we don't have ability to remove active tiles. We will use Shift + Left Click to remove the active tile
 
 ```cpp title="Source" hl_lines="13-23"
-	void UEditorTilemapTool::HandleClick(FInputDeviceRay MousePos, FScriptableToolModifierStates Modifiers,
+	void UDemoTilemapTool::HandleClick(FInputDeviceRay MousePos, FScriptableToolModifierStates Modifiers,
 		EScriptableToolMouseButton MouseButton)
 	{
 		...

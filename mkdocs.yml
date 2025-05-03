@@ -15,6 +15,7 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Dark mode
+      primary: black
 
     # Light Mode
     - scheme: default
@@ -35,6 +36,9 @@ markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true
   - admonition
+
+extra_css:
+  - stylesheets/extra.css
 
 plugins:
   - search
